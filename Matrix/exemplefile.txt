@@ -1,7 +1,7 @@
-TypeMatrice = double
+TypeMatrice =double
 NBLignes= 2
 NBColonnes  =2
 Matrice  = [  
- 5    3 
+ 5 3 
  1 -2
  ]   

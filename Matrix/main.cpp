@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include "Matrix.h"
-
+#include "test.h"
+#include "OpperationOnMatrix.h"
 int main(int argc, const char **argv)
 {
 	try {
@@ -13,20 +14,23 @@ int main(int argc, const char **argv)
 		std::cout << "Error occured during program initialisation\n";
 		EXCException.EXCPrintException();
 	}
-
+	
 	int iValue;
 	std::cout << "Please, input a value : \n";		//ask user the constant value
 	std::cin >> iValue;
 
 
+
+
 	/*Matrix Construction*/
+	CMatrixOperation<double> op;
 	CMatrix<double>* ppMATList = new CMatrix<double>[argc - 1];	//List of matrix
 
 	try {
 		for (int uiloop = 0; uiloop < argc - 1; uiloop++)	//for each file in argument, create associate matrix
 		{
-			CMatrix<double> MATMatrix(argv[uiloop + 1]);
-			ppMATList[uiloop] = MATMatrix;
+			CMatrix<double> * pMATMatrix = op.MOPCreateMAT(argv[uiloop + 1]);
+			ppMATList[uiloop] = *pMATMatrix;
 		}
 	}
 	catch (CException EXCException) {
@@ -40,14 +44,15 @@ int main(int argc, const char **argv)
 		for (int uiloop = 0; uiloop < argc - 1; uiloop++)		//for each matrix, multiply with constant
 		{
 			std::cout << "Matrix" << uiloop + 1 << " * " << iValue << ":\n";
-			(ppMATList[uiloop] * iValue).MATPrint();
+
+			op.MOPprintMAT(ppMATList[uiloop] * iValue);
 		}
 		std::cout << "\n";
 
 		for (int uiloop = 0; uiloop < argc - 1; uiloop++)		//for each matrix, divide with constant
 		{
 			std::cout << "Matrix" << uiloop + 1 << " / " << iValue << ":\n";
-			(ppMATList[uiloop] / iValue).MATPrint();
+			op.MOPprintMAT(ppMATList[uiloop] / iValue);
 		}
 		std::cout << "\n";
 
@@ -57,7 +62,8 @@ int main(int argc, const char **argv)
 			MatSum = MatSum + ppMATList[uiloop + 1];
 		}
 		std::cout << "Addition of every Matrix :\n";
-		MatSum.MATPrint();
+		op.MOPprintMAT(MatSum);
+
 		std::cout << "\n";
 
 		MatSum = ppMATList[0];
@@ -71,7 +77,7 @@ int main(int argc, const char **argv)
 			}
 		}
 		std::cout << "Alternating Addition/Substraction of every Matrix :\n";
-		MatSum.MATPrint();
+		op.MOPprintMAT(MatSum);
 		std::cout << "\n";
 
 		MatSum = ppMATList[0];
@@ -80,7 +86,7 @@ int main(int argc, const char **argv)
 			MatSum = MatSum * ppMATList[uiloop + 1];
 		}
 		std::cout << "Multiplication of every Matrix :\n";
-		MatSum.MATPrint();
+		op.MOPprintMAT(MatSum);
 	}
 	catch (CException EXCException) {
 		std::cout << "Error occured during matrix operation\n";
@@ -90,6 +96,7 @@ int main(int argc, const char **argv)
 	delete[] ppMATList;
 
 	return 0;
+	
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

@@ -152,13 +152,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CException.cpp" />
+    <ClCompile Include="CLexicalList.cpp" />
+    <ClCompile Include="CParser.cpp" />
+    <ClCompile Include="CStringOperation.cpp" />
     <ClCompile Include="main.cpp">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
     </ClCompile>
+    <ClCompile Include="ParseTab.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CException.h" />
+    <ClInclude Include="CLexicalList.h" />
+    <ClInclude Include="CParser.h" />
+    <ClInclude Include="CStringOperation.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="OpperationOnMatrix.h" />
+    <ClInclude Include="ParseTab.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

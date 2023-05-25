@@ -5,6 +5,7 @@
 
 #include "CException.h"
 
+#define DIMENSION_ERROR 3
 
 template <class MType> class CMatrix
 {
@@ -24,17 +25,15 @@ public:
 
 	CMatrix(const CMatrix<MType>& MATParam);
 
-	CMatrix(const char * pcFileName);
-
 	~CMatrix();
 
 /*Methods*/
 public:
-	unsigned int MATGetNbColum() { return uiMATNbColum; };
+	unsigned int MATGetNbColum() const { return uiMATNbColum; };
 
-	unsigned int MATGetNbRow() { return uiMATNbRow; };
+	unsigned int MATGetNbRow() const  { return uiMATNbRow; };
 
-	MType MATGetValue(unsigned int uiNumColum, unsigned int uiNumRow);
+	MType MATGetValue(unsigned int uiNumColum, unsigned int uiNumRow) const ;
 
 	void MATSetValue(unsigned int uiNumColum, unsigned int uiNumRow, MType mtValue);
 
@@ -52,7 +51,7 @@ public:
 
 	CMatrix MATTranspose();
 
-	void MATPrint();
+	
 };
 
 /**********************************************************************************************
@@ -112,97 +111,6 @@ CMatrix<Mtype>::CMatrix(const CMatrix<Mtype>& MATParam)
 	}
 }
 
-/*********************************************************************************
- ***** CMatrix() constructor from file										 *****
- *********************************************************************************
- ***** Input : string of the text file to read								 *****
- ***** Precondition: existing and correct file								 *****
- ***** Output:  None														 *****
- ***** Postconditions : construct CMatrix with information from inputed file *****
- *********************************************************************************/
-template <class Mtype>
-CMatrix<Mtype>::CMatrix(const char *pcFileName)
-{
-	FILE *fpFile;
-	char pcBuffer[50];
-	int iNBline;
-	int iNBCol;
-	int uiOut;
-	
-	fopen_s(&fpFile, pcFileName, "r");		//open file associate to the string argument
-
-	if (!fpFile) {
-		throw(CException(FILE_ERROR));
-	}
-
-	/*Read matrix parameters*/		
-	uiOut = fscanf_s(fpFile, "TypeMatrice = %s \n", pcBuffer, 50);		//Read Type
-	if (uiOut == 0)
-	{
-		throw(CException(FILE_CONTENT_ERROR));
-	}
-	if (strcmp("double", pcBuffer) != 0)
-	{
-		throw(CException(TYPE_ERROR));
-	}
-		
-	uiOut = fscanf_s(fpFile, "NBLignes = %d \n", &iNBline);			//Read line number
-	if (uiOut == 0)
-	{
-		throw(CException(FILE_CONTENT_ERROR));
-	}
-
-	uiOut = fscanf_s(fpFile, "NBColonnes = %d \n", &iNBCol);		//Read column number
-	if (uiOut == 0)
-	{
-		throw(CException(FILE_CONTENT_ERROR));
-	}
-
-	if (iNBline < 1 || iNBCol < 1) {
-		throw(CException(DIMENSION_ERROR));
-	}
-	
-	/*Construct matrix attribute*/
-	uiMATNbRow = (unsigned int) iNBline;
-	uiMATNbColum = (unsigned int) iNBCol;
-
-	ppMTypeMATvalue = new Mtype*[uiMATNbRow];		
-	for (unsigned int uiLoop = 0; uiLoop < uiMATNbRow; uiLoop++)
-	{
-		ppMTypeMATvalue[uiLoop] = new Mtype[uiMATNbColum];
-	}
-
-	/*Read matrix stored value*/
-	double dValue;
-	uiOut = fscanf_s(fpFile, "Matrice = [ ");
-
-	for (unsigned int uiline = 0; uiline < uiMATNbRow; uiline++)		//For each matrix slot, read associate value
-	{
-		for (unsigned int uiCol = 0; uiCol < uiMATNbColum; uiCol++)
-		{
-			uiOut = fscanf_s(fpFile, "%lf", &dValue);		//Read slot value
-			if (uiOut == 0)
-			{
-				throw(CException(FILE_CONTENT_ERROR));
-			}
-			ppMTypeMATvalue[uiline][uiCol] = dValue;
-		}
-		uiOut = fscanf_s(fpFile, "%[\n ]", pcBuffer, 50);
-	}
-
-	/*Test end of File*/
-	uiOut = fscanf_s(fpFile, "\n%[]]", pcBuffer, 50);	//Read last character "]"
-	if (uiOut == 0)
-	{
-		throw(CException(FILE_CONTENT_ERROR));
-	}
-	if (strcmp("]", pcBuffer) != 0)
-	{
-		throw(CException(FILE_CONTENT_ERROR));
-	}
-
-	fclose(fpFile);		//close file
-}
 
 /*********************************************************************************
  ***** CMatrix() destructor													 *****
@@ -232,7 +140,7 @@ CMatrix<Mtype>::~CMatrix()
  ***** Postconditions :  value is the element of the coordonate (uiNumRow,uiNumColum) *****
  ******************************************************************************************/
 template <class Mtype>
-Mtype CMatrix<Mtype>::MATGetValue(unsigned int uiNumRow, unsigned int uiNumColum)
+Mtype CMatrix<Mtype>::MATGetValue(unsigned int uiNumRow, unsigned int uiNumColum) const 
 {
 	if (uiNumRow >uiMATNbRow || uiNumColum > uiMATNbColum ||uiNumColum <0 || uiNumRow <0)
 	{
@@ -466,27 +374,6 @@ CMatrix<MType> CMatrix<MType>::MATTranspose()
 	return MATnew;
 }
 
-/****************************************************************************
- ***** MATPrint() Print matrix values									*****
- ****************************************************************************
- ***** Input : None														*****
- ***** Precondition: None												*****
- ***** Output:  None													*****
- ***** Postconditions : Print every element of CMatrix in a correct way *****
- ****************************************************************************/
-template <class MType>
-void CMatrix<MType>::MATPrint()
-{
-	unsigned int uiRow, uiColum;
-	for (uiRow = 0; uiRow < uiMATNbRow; uiRow++)
-	{
-		for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)	//foreach value of the new matrix
-		{
-			std::cout << ppMTypeMATvalue[uiRow][uiColum]<< " ";
-		}
-		std::cout << "\n";
-	}
-}
 
 /********************************************************************************
  ***** operator*() Multiply between a value and a matrix with '*'			*****
