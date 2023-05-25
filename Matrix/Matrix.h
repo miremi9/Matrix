@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "CException.h"
-
+#include "CComplex.h"
 #define DIMENSION_ERROR 3
 
 template <class MType> class CMatrix
@@ -46,6 +46,7 @@ public:
 	CMatrix operator*(CMatrix MATParam);
 
 	CMatrix operator*(double dCoeff);
+	CMatrix operator*(CComplex COMparam);
 
 	CMatrix operator/(double dCoeff);
 
@@ -324,6 +325,21 @@ CMatrix<MType> CMatrix<MType>::operator*(double dCoeff)
 	return MATnew;
 }
 
+
+template <class MType>
+CMatrix<MType> CMatrix<MType>::operator*(CComplex COMparam) {
+	CMatrix MATnew(this.MATGetNbRow(), this.MATGetNbColumn());
+
+	for (unsigned int uiRow = 0; uiRow < MATGetNbRow(); uiRow++) {
+		for (unsigned int uiColumn = 0; uiColumn < this.MATGetNbColumn(); uiColumn++) {
+			CComplex COMValue = MATGetValue(uiRow, uiColumn);
+			COMValue *= COMparam;
+			MATnew.MATSetValue(uiRow, uiColumn, COMValue);
+		}
+	}
+
+	return MATnew;
+}
 /************************************************************************
  ***** operator/() Divide matrix by a value with '/'                *****
  ************************************************************************

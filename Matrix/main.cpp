@@ -7,6 +7,11 @@
 #include "OpperationOnMatrix.h"
 int main(int argc, const char **argv)
 {
+	//testComplexe();
+	//testOPmatrix();
+	testComplexe();
+	testComplexMatrix();
+	return 0;
 	try {
 		if (argc < 2) { throw(CException(FILE_ERROR)); }		//Test if there is at least one argument	
 	}
@@ -20,7 +25,7 @@ int main(int argc, const char **argv)
 	std::cin >> iValue;
 
 
-
+	
 
 	/*Matrix Construction*/
 	CMatrixOperation<double> op;

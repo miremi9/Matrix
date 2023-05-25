@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CComplex.cpp" />
     <ClCompile Include="CException.cpp" />
     <ClCompile Include="CLexicalList.cpp" />
     <ClCompile Include="CParser.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CComplex.h" />
     <ClInclude Include="CException.h" />
     <ClInclude Include="CLexicalList.h" />
     <ClInclude Include="CParser.h" />
