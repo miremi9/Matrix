@@ -4,7 +4,7 @@
 
 #include "Matrix.h"
 #include "test.h"
-#include "OpperationOnMatrix.h"
+#include "CMatrixOperation.h"
 int main(int argc, const char **argv)
 {
 	//testComplexe();
@@ -104,6 +104,3 @@ int main(int argc, const char **argv)
 	return 0;
 	
 }
-
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage

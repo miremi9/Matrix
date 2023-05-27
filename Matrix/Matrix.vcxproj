@@ -169,7 +169,7 @@
     <ClInclude Include="CParser.h" />
     <ClInclude Include="CStringOperation.h" />
     <ClInclude Include="Matrix.h" />
-    <ClInclude Include="OpperationOnMatrix.h" />
+    <ClInclude Include="CMatrixOperation.h" />
     <ClInclude Include="ParseTab.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>

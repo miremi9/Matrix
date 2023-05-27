@@ -108,7 +108,17 @@ long CStringOperation::stoi(const char *s)
 	return i;
 }
 
-
+/**************************************************************************
+ ***** getComplex                                                     *****
+ **************************************************************************
+ ***** Input : const char * pcToken, double& dRealpart, double&       *****
+ ***** dImaginaryPart                                                 *****
+ ***** precondtion : pcToken has the form  [number] +- [number]i      *****
+ ***** throw CException otherwise                                     *****
+ ***** Output : None                                                  *****
+ ***** Postcondition : dRealpart & dImaginaryPart has the right       *****
+ ***** value according to pcToken                                     *****
+ **************************************************************************/
 void CStringOperation::getComplex(const char * pcToken, double& dRealpart, double& dImaginaryPart)
 {
 	char pcRealPart[10];  // Variable pour stocker la partie réelle

@@ -1,4 +1,4 @@
-#include "OpperationOnMatrix.h"
+#include "CMatrixOperation.h"
 #include "Matrix.h"
 #include "CComplex.h"
 

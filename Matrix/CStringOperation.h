@@ -50,7 +50,17 @@ class CStringOperation {
 		 ****************************************************************************/
 		long stoi(const char *s);
 
-
+		/**************************************************************************
+		 ***** getComplex                                                     *****
+		 **************************************************************************
+		 ***** Input : const char * pcToken, double& dRealpart, double&       *****
+		 ***** dImaginaryPart                                                 *****
+		 ***** precondtion : pcToken has the form  [number] +- [number]i      *****
+		 ***** throw CException otherwise                                     *****
+		 ***** Output : None                                                  *****
+		 ***** Postcondition : dRealpart & dImaginaryPart has the right       *****
+		 ***** value according to pcToken                                     *****
+		 **************************************************************************/
 		void getComplex(const char * pcToken, double& dRealpart, double& dImaginaryPart);
 
 };
