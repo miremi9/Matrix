@@ -107,3 +107,45 @@ long CStringOperation::stoi(const char *s)
 	}
 	return i;
 }
+
+
+void CStringOperation::getComplex(const char * pcToken, double& dRealpart, double& dImaginaryPart)
+{
+	char pcRealPart[10];  // Variable pour stocker la partie réelle
+	char pcImagPart[10];  // Variable pour stocker la partie imaginaire
+	unsigned int indicePart=0;
+	unsigned int indiceToken = 0;
+
+	pcRealPart[indicePart] = pcToken[indiceToken];
+	indicePart++;
+	indiceToken++;
+
+	while (pcToken[indiceToken] != '+' && pcToken[indiceToken] != '\0'  && pcToken[indiceToken] != '-') {
+		if (pcToken[indiceToken] != ' ')
+		{
+			pcRealPart[indicePart] = pcToken[indiceToken];
+
+			indicePart++;
+		}
+		indiceToken++;
+
+	}
+	pcRealPart[indicePart] = '\0';
+
+	indicePart = 0;
+
+	while (pcToken[indiceToken] != 'i' && pcToken[indiceToken] != '\0' && pcToken[indiceToken] != '*' ) {
+		if (pcToken[indiceToken] != ' ')
+		{
+			pcImagPart[indicePart] = pcToken[indiceToken];
+			indicePart++;
+
+		}
+		indiceToken++;
+
+	}
+	pcImagPart[indicePart] = '\0';
+	dRealpart = atof(pcRealPart);
+	dImaginaryPart = atof(pcImagPart);
+
+}

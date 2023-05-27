@@ -22,11 +22,8 @@ CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 	CStringOperation SOP;
 	CParser * pPARcontent = new CParser(pcFilename);
 	char * buffer = nullptr;
-	buffer = pPARcontent->PARgetValue("TypeMatrice");
-	if (strcmp(buffer, "double") != 0)
-	{
-		throw CException(VALUE_ERROR, "don't handle this type of element");
-	}
+
+	CMatrix<MType> * pMATnew;
 
 	buffer = pPARcontent->PARgetValue("NBLignes");
 	unsigned int Nblignes = SOP.stoi(buffer);
@@ -34,7 +31,20 @@ CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 	buffer = pPARcontent->PARgetValue("NBColonnes");
 	unsigned int NbColonnes = SOP.stoi(buffer);
 
-	CMatrix<double> * pMATnew = new CMatrix<double>(Nblignes, NbColonnes);
+	buffer = pPARcontent->PARgetValue("TypeMatrice");
+
+	if (strcmp(buffer, "double") == 0)
+	{
+		pMATnew = new CMatrix<MType>(Nblignes, NbColonnes);
+	}
+	else if (strcmp(buffer, "CComplexe") == 0)
+	{
+		pMATnew = new CMatrix<MType>(Nblignes, NbColonnes);
+	}
+	else
+	{
+		throw CException(VALUE_ERROR, "don't handle this type of element");
+	}
 
 	buffer = pPARcontent->PARgetValue("Matrice");
 

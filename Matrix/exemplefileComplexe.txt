@@ -1,0 +1,7 @@
+TypeMatrice =CComplexe
+NBLignes= 2
+NBColonnes  =2
+Matrice  = [  
+ 5+2i   3.0+5i   
+ 6-2i 15.7+2i
+ ]   

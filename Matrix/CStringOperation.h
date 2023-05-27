@@ -2,6 +2,7 @@
 #define C_STRING_OPERATION_H	
 
 #include "CException.h"
+#include <iostream>
 class CStringOperation {
 	public:
 
@@ -48,6 +49,9 @@ class CStringOperation {
 		 ***** and returns the result.											*****
 		 ****************************************************************************/
 		long stoi(const char *s);
+
+
+		void getComplex(const char * pcToken, double& dRealpart, double& dImaginaryPart);
 
 };
 

@@ -6,6 +6,11 @@ void testOPmatrix()
 	CMatrixOperation<double> op;
 	CMatrix<double> * MAT = op.MOPCreateMAT("exemplefile.txt");
 	op.MOPprintMAT(*MAT);
+
+	CMatrixOperation<CComplex> op2;
+	CMatrix<CComplex> * MAT2 = op2.MOPCreateMAT("exemplefileComplexe.txt");
+	op2.MOPprintMAT(*MAT2);
+
 }
 
 void testComplexe() 
@@ -112,4 +117,32 @@ void testComplexMatrix()
 	std::cout << std::endl;
 
 	return;
+}
+
+void testGetComplex()
+{
+	CStringOperation op;
+	double real;
+	double ima;
+	const char * token;
+	token = "3 + 4i";
+	op.getComplex(token, real, ima);
+	std::cout << "attendu : " << token<<"\n";
+	std::cout << "real : " << real << " ; imag : " << ima << "\n";
+
+	token = "3 - 4i";
+	op.getComplex(token, real, ima);
+	std::cout << "attendu : " << token << "\n";
+	std::cout << "real : " << real << " ; imag : " << ima << "\n";
+
+	token = "3.111 + 4.1i";
+	op.getComplex(token, real, ima);
+	std::cout << "attendu : " << token << "\n";
+	std::cout << "real : " << real << " ; imag : " << ima << "\n";
+
+	token = "3.111 - 4.1i";
+	op.getComplex(token, real, ima);
+	std::cout << "attendu : " << token << "\n";
+	std::cout << "real : " << real << " ; imag : " << ima << "\n";
+
 }

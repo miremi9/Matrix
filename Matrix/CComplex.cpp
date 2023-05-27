@@ -85,7 +85,15 @@ void CComplex::print() const
 
 std::ostream& operator<<(std::ostream& os, const CComplex& complex)
 {
-	os << complex.dCOMreal << " + " << complex.dCOMimaginary << "i";
+	if (complex.dCOMimaginary < 0)
+	{
+		os << complex.dCOMreal<< complex.dCOMimaginary << "i";
+	}
+	else
+	{
+		os << complex.dCOMreal << "+" << complex.dCOMimaginary << "i";
+	}
+	
 	return os;
 }
 
