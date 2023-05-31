@@ -50,7 +50,7 @@ CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 	buffer = pPARcontent->PARgetValue("Matrice");
 
 	ParseTab(buffer, pMATnew, Nblignes, NbColonnes);
-
+	delete pPARcontent;
 	return pMATnew;
 
 }

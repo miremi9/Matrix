@@ -6,10 +6,12 @@ void testOPmatrix()
 	CMatrixOperation<double> op;
 	CMatrix<double> * MAT = op.MOPCreateMAT("exemplefile.txt");
 	op.MOPprintMAT(*MAT);
+	delete MAT;
 
 	CMatrixOperation<CComplex> op2;
 	CMatrix<CComplex> * MAT2 = op2.MOPCreateMAT("exemplefileComplexe.txt");
 	op2.MOPprintMAT(*MAT2);
+	delete MAT2;
 
 }
 
