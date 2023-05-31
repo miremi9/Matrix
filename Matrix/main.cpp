@@ -7,11 +7,11 @@
 #include "CMatrixOperation.h"
 int main(int argc, const char **argv)
 {
-	//testComplexe();
+	testComplexe();
 	testOPmatrix();
-	//testComplexe();
-	//testComplexMatrix();
-	//testGetComplex();
+	testComplexe();
+	testComplexMatrix();
+	testGetComplex();
 	return 0;
 	try {
 		if (argc < 2) { throw(CException(FILE_ERROR)); }		//Test if there is at least one argument	

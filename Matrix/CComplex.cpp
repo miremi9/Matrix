@@ -68,9 +68,14 @@ CComplex CComplex::operator*(const CComplex& COMparam) const
 CComplex CComplex::operator/(const CComplex& COMparam) const
 {
 	double denominator = COMparam.dCOMreal * COMparam.dCOMreal + COMparam.dCOMimaginary * COMparam.dCOMimaginary;
-	double realQuotient = (dCOMreal * COMparam.dCOMreal + dCOMimaginary * COMparam.dCOMimaginary) / denominator;
-	double imaginaryQuotient = (dCOMimaginary * COMparam.dCOMreal - dCOMreal * COMparam.dCOMimaginary) / denominator;
-	return CComplex(realQuotient, imaginaryQuotient);
+	if (denominator != 0) {
+		double realQuotient = (dCOMreal * COMparam.dCOMreal + dCOMimaginary * COMparam.dCOMimaginary) / denominator;
+		double imaginaryQuotient = (dCOMimaginary * COMparam.dCOMreal - dCOMreal * COMparam.dCOMimaginary) / denominator;
+		return CComplex(realQuotient, imaginaryQuotient);
+	}
+	else {
+		throw new CException(VALUE_ERROR, "Division by 0");
+	}
 }
 
 void CComplex::print() const

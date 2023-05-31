@@ -166,12 +166,18 @@
     <ClInclude Include="CComplex.h" />
     <ClInclude Include="CException.h" />
     <ClInclude Include="CLexicalList.h" />
+    <ClInclude Include="CMatrix.ipp" />
+    <ClInclude Include="CMatrixOperation.ipp" />
     <ClInclude Include="CParser.h" />
     <ClInclude Include="CStringOperation.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="CMatrixOperation.h" />
     <ClInclude Include="ParseTab.h" />
     <ClInclude Include="test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="exemplefile.txt" />
+    <Text Include="exemplefileComplexe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

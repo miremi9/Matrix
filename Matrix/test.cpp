@@ -50,7 +50,7 @@ void testComplexe()
 	CComplex quotient = complex3 / complex2;
 	std::cout << "Quotient: ";
 	quotient.print();
-	std::cout << "Attendu : 0.172577 - 1.60565i\n";
+	std::cout << "Attendu : 0,88  + 0,529i\n";
 
 	// Modification des parties réelle et imaginaire
 	sum.setReal(2.0);

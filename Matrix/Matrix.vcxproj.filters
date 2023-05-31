@@ -68,5 +68,19 @@
     <ClInclude Include="CMatrixOperation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="CMatrixOperation.ipp">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="CMatrix.ipp">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="exemplefile.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="exemplefileComplexe.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,6 +1,9 @@
 #ifndef CCOMPLEX_H
 #define CCOMPLEX_H
 #include <iostream>
+#include "CException.h"
+
+#define VALUE_ERROR 3
 
 class CComplex {
 private:
