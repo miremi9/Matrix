@@ -1,6 +1,6 @@
-
-#include <iostream>
 #include "CException.h"
+
+
 /**********************************************************************************************
  ***** Default class constructor                                                          *****
  **********************************************************************************************
@@ -35,10 +35,26 @@ CException::CException( int value) {
  ***** Output:  None                                                                      *****
  ***** Postcondition : Create an CException Object with inputed value                     *****
  **********************************************************************************************/
-CException::CException(int value, const char * pcMessage) {
-	iEXCvalue = value;
+CException::CException(int iValue, const char * pcMessage)
+{
+	iEXCvalue = iValue;
 	pcEXCMessage = new char[strlen(pcMessage) + 1];
 	strcpy_s(pcEXCMessage, strlen(pcMessage) + 1, pcMessage);
+}
+
+/**********************************************************************************************
+ ***** Class copie constructor                                                            *****
+ **********************************************************************************************
+ ***** Input : CException EXCparam			                                              *****
+ ***** Precondition: None                                                                 *****
+ ***** Output:  None                                                                      *****
+ ***** Postcondition : Create an CException Object with copied value from inputed one     *****
+ **********************************************************************************************/
+CException::CException(const CException & EXCparam)
+{
+	iEXCvalue = EXCparam.iEXCvalue;
+	pcEXCMessage = new char[strlen(EXCparam.pcEXCMessage) + 1];
+	strcpy_s(pcEXCMessage, strlen(EXCparam.pcEXCMessage) + 1, EXCparam.pcEXCMessage);
 }
 
 /************************************************************************
@@ -52,67 +68,52 @@ CException::~CException()
 {
 	if (pcEXCMessage)
 	{
-		delete pcEXCMessage;
+		delete[] pcEXCMessage;
 	}
 }
 
 /**********************************************************************************************
- ***** Print Exception value and details                                                  *****
+ ***** CException operator=                                                               *****
  **********************************************************************************************
- ***** Input : None                                                                       *****
+ ***** Input : CException EXCparam			                                              *****
  ***** Precondition: None                                                                 *****
  ***** Output:  None                                                                      *****
- ***** Postcondition : Print text message of exception code and details                   *****
+ ***** Postcondition : return copie CException										      *****
  **********************************************************************************************/
-void CException::EXCPrintException() {
-
-		std::cout << "Exception number " << EXCgetValue() << " : ";
-		if (EXCgetValue() == 0)
-		{
-			std::cout << "CException value Error\n";
-			std::cout << "Make sure to get a correct value for CException value\n";
-		}
-		else if (EXCgetValue() == FILE_ERROR)
-		{
-			std::cout << "File Error\n";
-			std::cout << "Make sure your file exist with correct name & place\n";
-		}
-		else if (EXCgetValue() == FILE_CONTENT_ERROR)
-		{
-			std::cout << "File Content Error\n";
-			std::cout << "Make sure your file respect syntaxe and containt enought/correct element\n";
-		}
-		else if (EXCgetValue() == VALUE_ERROR)
-		{
-			std::cout << "Value Error\n";
-			std::cout << "Make sure inputed Value match with matrix methods\n";
-		}
-		else if (EXCgetValue() == TYPE_ERROR)
-		{
-			std::cout << "Type Error\n";
-			std::cout << "Make sure to use correct type (Implemented type : double)\n";
-		}
-		else if (EXCgetValue() == ID_ERROR)
-		{
-			std::cout << "ID Error\n";
-			std::cout << "Make sure to use correct ID which not already exist\n";
-		}
-		else if (EXCgetValue() == KEY_ERROR)
-		{
-			std::cout << "Key Error\n";
-			std::cout << "The key was not found\n";
-		}
-		else 
-		{
-			std::cout << "CException Error\n";
-			std::cout << "CException Value Error not implemented\n";
-		}
-
-
-	if (pcEXCMessage)
+CException & CException::operator=(const CException & EXCparam)
+{
+	if (this != &EXCparam)
 	{
-		std::cout << pcEXCMessage;
+		iEXCvalue = EXCparam.iEXCvalue;
+
+		delete[] pcEXCMessage;
+		if (EXCparam.pcEXCMessage)
+		{
+			pcEXCMessage = new char[strlen(EXCparam.pcEXCMessage) + 1];
+			strcpy_s(pcEXCMessage, strlen(EXCparam.pcEXCMessage) + 1, EXCparam.pcEXCMessage);
+		}
+		else {
+			pcEXCMessage = nullptr;
+		}
 	}
-	std::cout << std::endl;
-	exit(-1);
+	return *this;
+}
+
+/**********************************************************************************************
+ ***** CException operator<<	                                                          *****
+ **********************************************************************************************
+ ***** Input : ostream os, CException EXCparam			                                  *****
+ ***** Precondition: None                                                                 *****
+ ***** Output:  None                                                                      *****
+ ***** Postcondition : print CExeption values in stream								      *****
+ **********************************************************************************************/
+std::ostream& operator<<(std::ostream& os, const CException& EXCparam)
+{
+	os << "ERROR CODE : " << EXCparam.iEXCvalue;
+
+	if (EXCparam.pcEXCMessage) {
+		os << EXCparam.pcEXCMessage;
+	}
+
+	return os;
 }

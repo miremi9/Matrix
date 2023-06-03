@@ -7,58 +7,64 @@
 #include "CMatrixOperation.h"
 int main(int argc, const char **argv)
 {
+	/*
 	testComplexe();
 	testOPmatrix();
 	testComplexe();
 	testComplexMatrix();
 	testGetComplex();
-	return 0;
+	*/
+	
 	try {
-		if (argc < 2) { throw(CException(FILE_ERROR)); }		//Test if there is at least one argument	
+		if (argc < 2) { throw CException(FILE_ERROR, " FILE_ERROR\nMake sure your file exist with correct name & place\n"); }		//Test if there is at least one argument	
 	}
-	catch (CException EXCException) {
-		std::cout << "Error occured during program initialisation\n";
-		EXCException.EXCPrintException();
+	catch (const CException & EXCparam) {
+		std::cerr << "Error occured during program initialisation\n";
+		std::cerr << EXCparam << std::endl;
+		return 1;
 	}
 	
 	int iValue;
 	std::cout << "Please, input a value : \n";		//ask user the constant value
 	std::cin >> iValue;
-
-
+	CMatrixOperation<double> MOP;
 	
 
 	/*Matrix Construction*/
-	CMatrixOperation<double> op;
 	CMatrix<double>* ppMATList = new CMatrix<double>[argc - 1];	//List of matrix
 
 	try {
 		for (int uiloop = 0; uiloop < argc - 1; uiloop++)	//for each file in argument, create associate matrix
 		{
-			CMatrix<double> * pMATMatrix = op.MOPCreateMAT(argv[uiloop + 1]);
+			CMatrix<double> * pMATMatrix = MOP.MOPCreateMAT(argv[uiloop + 1]);
 			ppMATList[uiloop] = *pMATMatrix;
 		}
 	}
-	catch (CException EXCException) {
+	catch (CException EXCparam) {
 		std::cout << "Error occured during matrix construction\n";
-		EXCException.EXCPrintException();
+		std::cout << EXCparam;
 	}
 
 
 	/*Apply methods on matrix*/
 	try {
+
+		//MOPprintMAT(iValue + ppMATList[0]);
+
+
+		/*
 		for (int uiloop = 0; uiloop < argc - 1; uiloop++)		//for each matrix, multiply with constant
 		{
 			std::cout << "Matrix" << uiloop + 1 << " * " << iValue << ":\n";
 
-			op.MOPprintMAT(ppMATList[uiloop] * iValue);
+			MOP.MOPprintMAT(ppMATList[uiloop] * iValue);
 		}
 		std::cout << "\n";
 
 		for (int uiloop = 0; uiloop < argc - 1; uiloop++)		//for each matrix, divide with constant
 		{
 			std::cout << "Matrix" << uiloop + 1 << " / " << iValue << ":\n";
-			op.MOPprintMAT(ppMATList[uiloop] / iValue);
+			MOP.MOPprintMAT(ppMATList[uiloop] / iValue);
 		}
 		std::cout << "\n";
 
@@ -68,7 +74,7 @@ int main(int argc, const char **argv)
 			MatSum = MatSum + ppMATList[uiloop + 1];
 		}
 		std::cout << "Addition of every Matrix :\n";
-		op.MOPprintMAT(MatSum);
+		MOP.MOPprintMAT(MatSum);
 
 		std::cout << "\n";
 
@@ -83,7 +89,7 @@ int main(int argc, const char **argv)
 			}
 		}
 		std::cout << "Alternating Addition/Substraction of every Matrix :\n";
-		op.MOPprintMAT(MatSum);
+		MOP.MOPprintMAT(MatSum);
 		std::cout << "\n";
 
 		MatSum = ppMATList[0];
@@ -92,11 +98,12 @@ int main(int argc, const char **argv)
 			MatSum = MatSum * ppMATList[uiloop + 1];
 		}
 		std::cout << "Multiplication of every Matrix :\n";
-		op.MOPprintMAT(MatSum);
+		MOP.MOPprintMAT(MatSum);
+		*/
 	}
-	catch (CException EXCException) {
+	catch (CException EXCparam) {
 		std::cout << "Error occured during matrix operation\n";
-		EXCException.EXCPrintException();
+		std::cout << EXCparam;
 	}
 
 	delete[] ppMATList;

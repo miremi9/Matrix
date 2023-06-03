@@ -92,7 +92,7 @@ std::ostream& operator<<(std::ostream& os, const CComplex& complex)
 {
 	if (complex.dCOMimaginary < 0)
 	{
-		os << complex.dCOMreal<< complex.dCOMimaginary << "i";
+		os << complex.dCOMreal<< "-" << complex.dCOMimaginary << "i";
 	}
 	else
 	{

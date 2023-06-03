@@ -4,6 +4,9 @@
 #include "CException.h"
 #include "CStringOperation.h"
 
+#define VALUE_ERROR 3
+#define KEY_ERROR 6
+
 
 class LexicalList
 {

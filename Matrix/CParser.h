@@ -3,7 +3,7 @@
 
 #include "CException.h"
 #define FILE_ERROR 1
-
+#define KEY_ERROR 6
 
 class CParser
 {
