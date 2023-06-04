@@ -27,15 +27,25 @@ template <class MType> class CMatrixOperation
 		 **************************************************************************/
 		CMatrix<MType> * MOPCreateMAT(const char *pcFilename);
 
+		/************************************************************************
+		 ***** MOPransposeMAT() Transpose a matrix                          *****
+		 ************************************************************************
+		 ***** Input :  const CMatrix<MType> MATparam                       *****
+		 ***** Precondition: MATparam is initialized                        *****
+		 ***** Output:  CMatrix                                             *****
+		 ***** Postconditions : The output is the transpose of CMatrix      *****
+		 ************************************************************************/
+		CMatrix<MType> * MOPtransposeMAT(const CMatrix<MType> MATparam);
+
 		/**************************************************************************
-		 ***** MOPprintMAT                                                    *****
+		 ***** MOPnullMAT                                                    *****
 		 **************************************************************************
 		 ***** Input : const CMatrix<MType> MATparam                          *****
 		 ***** precondtion : MATparam is initialized                          *****
 		 ***** Output : None                                                  *****
-		 ***** Postcondition : print the matrix                               *****
+		 ***** Postcondition : fill matrix with 0                             *****
 		 **************************************************************************/
-		void MOPprintMAT(const CMatrix<MType> MATparam);
+		void MOPnullMAT(const CMatrix<MType> MATparam);
 };
 
 #include "CMatrixOperation.ipp"

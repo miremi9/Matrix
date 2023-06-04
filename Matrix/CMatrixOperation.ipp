@@ -58,25 +58,26 @@ CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 
 }
 
-
-/****************************************************************************
- ***** MATPrint() Print matrix values									*****
- ****************************************************************************
- ***** Input : None														*****
- ***** Precondition: None												*****
- ***** Output:  None													*****
- ***** Postconditions : Print every element of CMatrix in a correct way *****
- ****************************************************************************/
+/************************************************************************
+ ***** MOPransposeMAT() Transpose a matrix                          *****
+ ************************************************************************
+ ***** Input :  const CMatrix<MType> MATparam                       *****
+ ***** Precondition: MATparam is initialized                        *****
+ ***** Output:  CMatrix                                             *****
+ ***** Postconditions : The output is the transpose of CMatrix      *****
+ ************************************************************************/
 template <class MType>
-void  CMatrixOperation<MType>::MOPprintMAT(const CMatrix<MType> MATparam)
+CMatrix<MType>* CMatrixOperation<MType>::MOPtransposeMAT(CMatrix<MType> MATparam)
 {
+	CMatrix<MType>* MATnew = new CMatrix<MType>(MATparam.MATGetNbColum(), MATparam.MATGetNbRow());
+
 	unsigned int uiRow, uiColum;
 	for (uiRow = 0; uiRow < MATparam.MATGetNbRow(); uiRow++)
 	{
-		for (uiColum = 0; uiColum < MATparam.MATGetNbColum(); uiColum++)	//foreach value of the new matrix
+		for (uiColum = 0; uiColum < MATparam.MATGetNbColum(); uiColum++)
 		{
-			std::cout << MATparam.MATGetValue(uiRow, uiColum) << " ";
+			MATnew.ppMTypeMATvalue[uiColum][uiRow] = MATparam.MATGetValue(uiRow, uiColum);
 		}
-		std::cout << "\n";
 	}
+	return MATnew;
 }

@@ -61,7 +61,7 @@ template <class MType> class CMatrix
 
 		unsigned int MATGetNbColum() const { return uiMATNbColum; };
 
-		unsigned int MATGetNbRow() const  { return uiMATNbRow; };
+		unsigned int MATGetNbRow() const { return uiMATNbRow; };
 
 		MType MATGetValue(unsigned int uiNumColum, unsigned int uiNumRow) const ;
 
@@ -75,6 +75,8 @@ template <class MType> class CMatrix
 		 **************************************************************************************************************/
 		void MATSetValue(unsigned int uiNumColum, unsigned int uiNumRow, MType mtValue);
 
+
+		
 		CMatrix operator+(CMatrix MATParam);
 
 		CMatrix operator-(CMatrix MATParam);
@@ -97,17 +99,11 @@ template <class MType> class CMatrix
 		 ************************************************************************/
 		CMatrix operator/(double dCoeff);
 
+		template<typename T, typename U>
+		friend CMatrix<typename std::common_type<T, U>::type> operator+(const CMatrix<T>& MATparam1, const CMatrix<U>& MATparam2);
 
-		/************************************************************************
-		 ***** MATTranspose() Transpose a matrix                            *****
-		 ************************************************************************
-		 ***** Input :  None                                                *****
-		 ***** Precondition: None                                           *****
-		 ***** Output:  CMatrix                                             *****
-		 ***** Postconditions : The output is the transpose of CMatrix      *****
-		 ************************************************************************/
-		CMatrix MATTranspose();
-
+		template<class T>
+		friend std::ostream & operator<<(std::ostream & os, const CMatrix<T> & MATparam);
 };
 
 #include "CMatrix.ipp"

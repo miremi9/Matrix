@@ -143,7 +143,7 @@ void CParser::PARReadFile(const char * pcFileName)
 	else
 	{
 		//printf("The file 'crt_fopen_s.c' was not opened\n");
-		throw CException(FILE_ERROR, " CParser::PARReadFile : File was not opened");
+		throw CException(FILE_ERROR, " FILE_ERROR\nCParser::PARReadFile : File was not opened");
 	}
 	// Store the content of the file
 

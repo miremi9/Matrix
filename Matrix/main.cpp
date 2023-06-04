@@ -9,12 +9,18 @@
 
 int main(int argc, const char **argv)
 {
-	
-	testComplexe();
-	testOPmatrix();
-	testComplexe();
-	testComplexMatrix();
-	testGetComplex();
+	try {
+		testComplexe();
+		testOPmatrix();
+		testComplexe();
+		testComplexMatrix();
+		testGetComplex();
+	}
+	catch (const CException & EXCparam) {
+		std::cerr << "Error occured during program initialisation\n";
+		std::cerr << EXCparam << std::endl;
+		return 1;
+	}
 	
 	try {
 		if (argc < 2) { throw CException(FILE_ERROR, " FILE_ERROR\nMake sure your file exist with correct name & place\n"); }		//Test if there is at least one argument	
@@ -24,10 +30,10 @@ int main(int argc, const char **argv)
 		std::cerr << EXCparam << std::endl;
 		return 1;
 	}
-	
+	/*
 	int iValue;
 	std::cout << "Please, input a value : \n";		//ask user a constant value
-	std::cin >> iValue;
+	std::cin >> iValue;*/
 	CMatrixOperation<double> MOP;
 	
 

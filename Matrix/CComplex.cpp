@@ -6,13 +6,11 @@ CComplex::CComplex()
 	dCOMimaginary = 0.0;
 }
 
-
 // Constructeur avec parties réelle et imaginaire spécifiées
 CComplex::CComplex(double dReal, double dImaginary)
 {
 	dCOMreal = dReal;
 	dCOMimaginary = dImaginary;
-
 }
 
 // Constructeur avec partie réelle spécifiée et partie imaginaire par défaut à zéro
@@ -27,21 +25,45 @@ CComplex::CComplex(const CComplex & COMparam) {
 	dCOMimaginary = COMparam.dCOMimaginary;
 }
 
-CComplex & CComplex::operator=(const CComplex& other) {
-	if (this != &other) {
-		dCOMreal = other.dCOMreal;
-		dCOMimaginary = other.dCOMimaginary;
+CComplex & CComplex::operator=(const CComplex & COMparam)
+{
+	if (this != &COMparam) {
+		dCOMreal = COMparam.dCOMreal;
+		dCOMimaginary = COMparam.dCOMimaginary;
 	}
 	return *this;
 }
 
-CComplex& CComplex::operator+=(const CComplex& other) {
-	dCOMreal += other.dCOMreal;
-	dCOMimaginary += other.dCOMimaginary;
+CComplex & CComplex::operator+=(const CComplex& COMparam)
+{
+	dCOMreal += COMparam.dCOMreal;
+	dCOMimaginary += COMparam.dCOMimaginary;
 	return *this;
 }
+
+CComplex & CComplex::operator-=(const CComplex& COMparam)
+{
+	dCOMreal -= COMparam.dCOMreal;
+	dCOMimaginary -= COMparam.dCOMimaginary;
+	return *this;
+}
+
+CComplex & CComplex::operator*=(const CComplex& COMparam)
+{
+	dCOMreal = (*this * COMparam).COMgetReal();
+	dCOMimaginary = (*this * COMparam).COMgetImaginary();
+	return *this;
+}
+
+CComplex & CComplex::operator/=(const CComplex& COMparam)
+{
+	dCOMreal = (*this / COMparam).COMgetReal();
+	dCOMimaginary = (*this / COMparam).COMgetImaginary();
+	return *this;
+}
+
 // Opérateur d'addition
-CComplex CComplex::operator+(const CComplex& COMparam) const
+CComplex CComplex::operator+(const CComplex & COMparam) const
 {
 	double realSum = dCOMreal + COMparam.dCOMreal;
 	double imaginarySum = dCOMimaginary + COMparam.dCOMimaginary;
@@ -53,6 +75,13 @@ CComplex CComplex::operator-(const CComplex& COMparam) const
 {
 	double realDiff = dCOMreal - COMparam.dCOMreal;
 	double imaginaryDiff = dCOMimaginary - COMparam.dCOMimaginary;
+	return CComplex(realDiff, imaginaryDiff);
+}
+
+CComplex CComplex::operator-() const
+{
+	double realDiff = dCOMreal * (-1);
+	double imaginaryDiff = dCOMimaginary * (-1);
 	return CComplex(realDiff, imaginaryDiff);
 }
 
@@ -68,70 +97,55 @@ CComplex CComplex::operator*(const CComplex& COMparam) const
 CComplex CComplex::operator/(const CComplex& COMparam) const
 {
 	double denominator = COMparam.dCOMreal * COMparam.dCOMreal + COMparam.dCOMimaginary * COMparam.dCOMimaginary;
-	if (denominator != 0) {
+
+	if (denominator != 0)
+	{
 		double realQuotient = (dCOMreal * COMparam.dCOMreal + dCOMimaginary * COMparam.dCOMimaginary) / denominator;
 		double imaginaryQuotient = (dCOMimaginary * COMparam.dCOMreal - dCOMreal * COMparam.dCOMimaginary) / denominator;
 		return CComplex(realQuotient, imaginaryQuotient);
 	}
 	else {
-		throw new CException(VALUE_ERROR, "Division by 0");
+		throw new CException(VALUE_ERROR, "VALUE_ERROR\nDivision by 0");
 	}
 }
 
-void CComplex::print() const
+CComplex operator+(double dValue, const CComplex& COMparam)
 {
-	std::cout << dCOMreal;
-	if (dCOMimaginary >= 0)
-		std::cout << " + " << dCOMimaginary << "i";
-	else
-		std::cout << " - " << -dCOMimaginary << "i";
-	std::cout << std::endl;
+	double drealSum = dValue + COMparam.dCOMreal;
+	double dimaginarySum = COMparam.dCOMimaginary;
+	return CComplex(drealSum, dimaginarySum);
 }
 
-std::ostream& operator<<(std::ostream& os, const CComplex& complex)
+CComplex operator-(double dValue, const CComplex& COMparam)
 {
-	if (complex.dCOMimaginary < 0)
+	double drealSum = dValue - COMparam.dCOMreal;
+	double dimaginarySum = -COMparam.dCOMimaginary;
+	return CComplex(drealSum, dimaginarySum);
+}
+
+CComplex operator*(double dValue, const CComplex& COMparam)
+{
+	double drealProduct = dValue * COMparam.dCOMreal;
+	double dimaginaryProduct =dValue * COMparam.dCOMimaginary;
+	return CComplex(drealProduct, dimaginaryProduct);
+}
+
+CComplex operator/(double dValue, const CComplex& COMparam)
+{
+	CComplex COMtemp(dValue);
+	double dreal = (COMtemp / COMparam).COMgetReal();
+	double dimaginary = (COMtemp / COMparam).COMgetImaginary();
+	return CComplex(dreal, dimaginary);
+}
+
+std::ostream & operator<<(std::ostream & os, const CComplex & COMparam)
+{
+	os << COMparam.dCOMreal;
+	if (COMparam.dCOMimaginary >= 0)
 	{
-		os << complex.dCOMreal<< "-" << complex.dCOMimaginary << "i";
+		os << "+";
 	}
-	else
-	{
-		os << complex.dCOMreal << "+" << complex.dCOMimaginary << "i";
-	}
-	
+	os << COMparam.dCOMimaginary << "i";
+
 	return os;
-}
-
-CComplex operator*(double value1, CComplex value2) {
-	double real = value1 * value2.getReal();
-	double imaginary = value1 * value2.getImaginary();
-	return CComplex(real, imaginary);
-}
-CComplex operator*( CComplex value2, double value1) {
-	double real = value1 * value2.getReal();
-	double imaginary = value1 * value2.getImaginary();
-	return CComplex(real, imaginary);
-}
-
-CComplex operator/(double value1, CComplex value2) {
-	double denominator = value2.dCOMreal * value2.dCOMreal + value2.dCOMimaginary * value2.dCOMimaginary;
-	double realPart = (value1 * value2.dCOMreal) / denominator;
-	double imaginaryPart = (-value1 * value2.dCOMimaginary) / denominator;
-	return CComplex(realPart, imaginaryPart);
-}
-
-// Surcharge de l'opérateur de division / (CComplex, double)
-CComplex operator/(CComplex value2, double value1) {
-	double realPart = value2.dCOMreal / value1;
-	double imaginaryPart = value2.dCOMimaginary / value1;
-	return CComplex(realPart, imaginaryPart);
-}
-
-CComplex operator-(double value1, CComplex value2) {
-	return CComplex(value1 - value2.dCOMreal, -value2.dCOMimaginary);
-}
-
-
-CComplex operator-(CComplex value2, double value1) {
-	return CComplex(value2.dCOMreal - value1, value2.dCOMimaginary);
 }
