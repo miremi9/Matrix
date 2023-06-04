@@ -1,3 +1,5 @@
+//CMatrixOperation.ipp file used to define function from CMatrixOperation class declare in CMatrixOperation.h
+
 
 /**************************************************************************
  ***** MOPCreateMAT                                                   *****
@@ -13,6 +15,7 @@ template <class MType>
 CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 {
 	CStringOperation SOP;
+	CParseTable PTA;
 	CParser * pPARcontent = new CParser(pcFilename);
 	char * buffer = nullptr;
 
@@ -49,7 +52,7 @@ CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 
 	buffer = pPARcontent->PARgetValue("Matrice");
 
-	ParseTab(buffer, pMATnew, Nblignes, NbColonnes);
+	PTA.PTAparseTable(buffer, pMATnew, Nblignes, NbColonnes);
 
 	return pMATnew;
 

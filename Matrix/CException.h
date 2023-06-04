@@ -8,9 +8,9 @@ class CException {
 	//Attributes
 	private :
 
-		int iEXCvalue;
+		int iEXCvalue;			//CException error value
 
-		char * pcEXCMessage;
+		char * pcEXCMessage;	//CException string message
 
 	//Constructors & Destructors
 	public :
@@ -106,7 +106,7 @@ class CException {
 		 ***** Output:  None                                                                      *****
 		 ***** Postcondition : print CExeption values in stream								      *****
 		 **********************************************************************************************/
-		friend std::ostream & operator<<(std::ostream & os, const CException & exception);
+		friend std::ostream & operator<<(std::ostream & os, const CException & EXCparam);
 };
 
 #endif	//C_EXCEPTION_H

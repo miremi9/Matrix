@@ -1,3 +1,4 @@
+//CMatrix.ipp file used to define function from CMatrix class declare in CMatrix.h
 
 
 /**********************************************************************************************
@@ -56,7 +57,6 @@ CMatrix<Mtype>::CMatrix(const CMatrix<Mtype>& MATParam)
 		}
 	}
 }
-
 
 /*********************************************************************************
  ***** CMatrix() destructor													 *****

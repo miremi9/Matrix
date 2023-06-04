@@ -13,13 +13,13 @@ class LexicalList
 	/*Attributs*/
 	private:
 
-		char *** pppcLELListValue;
+		char *** pppcLELListValue;		//list of string list value
 
-		char ** ppcLELListKey;
+		char ** ppcLELListKey;			//string list of Key
 
-		unsigned int uiLELnbKey;
+		unsigned int uiLELnbKey;		//key counter
 
-		unsigned int uiLELnbValue;
+		unsigned int uiLELnbValue;		//value counter
 
 	/*Constructors & Destructors*/
 	public:
@@ -150,4 +150,4 @@ class LexicalList
 		void LELDelete();
 };
 
-#endif
+#endif	//C_LEXICAL_LIST_H

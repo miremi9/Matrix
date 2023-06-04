@@ -8,10 +8,10 @@ CComplex::CComplex()
 
 
 // Constructeur avec parties réelle et imaginaire spécifiées
-CComplex::CComplex(double dreal, double dimaginary)
+CComplex::CComplex(double dReal, double dImaginary)
 {
-	dCOMreal = dreal;
-	dCOMimaginary = dimaginary;
+	dCOMreal = dReal;
+	dCOMimaginary = dImaginary;
 
 }
 

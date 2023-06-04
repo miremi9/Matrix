@@ -2,19 +2,21 @@
 #define C_PARSER_H
 
 #include "CException.h"
+
 #define FILE_ERROR 1
 #define KEY_ERROR 6
+
 
 class CParser
 {
 	/*Attributes*/
 	private:
 
-		char ** ppcPARKeyList;
+		char ** ppcPARKeyList;			//string list of Key
 
-		char ** ppcPARValueList;
+		char ** ppcPARValueList;		//string list of value associate to Key
 
-		unsigned int uiNbItem;
+		unsigned int uiNbItem;			//list item counter
 
 	/*Constructors & Destructors*/
 	public:
@@ -81,4 +83,4 @@ class CParser
 		void PARReadFile(const char * pcPAth);
 };
 
-#endif
+#endif	//C_PARSER_H

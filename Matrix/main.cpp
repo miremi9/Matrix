@@ -1,19 +1,20 @@
-// Matrix.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
+// main.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
 
 #include <iostream>
 
-#include "Matrix.h"
+#include "CMatrix.h"
 #include "test.h"
 #include "CMatrixOperation.h"
+
+
 int main(int argc, const char **argv)
 {
-	/*
+	
 	testComplexe();
 	testOPmatrix();
 	testComplexe();
 	testComplexMatrix();
 	testGetComplex();
-	*/
 	
 	try {
 		if (argc < 2) { throw CException(FILE_ERROR, " FILE_ERROR\nMake sure your file exist with correct name & place\n"); }		//Test if there is at least one argument	
@@ -25,7 +26,7 @@ int main(int argc, const char **argv)
 	}
 	
 	int iValue;
-	std::cout << "Please, input a value : \n";		//ask user the constant value
+	std::cout << "Please, input a value : \n";		//ask user a constant value
 	std::cin >> iValue;
 	CMatrixOperation<double> MOP;
 	
