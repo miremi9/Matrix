@@ -1,3 +1,4 @@
+#include "CMatrix.h"
 //CMatrix.ipp file used to define function from CMatrix class declare in CMatrix.h
 
 
@@ -17,17 +18,18 @@ CMatrix<Mtype>::CMatrix(unsigned int uiNbRow, unsigned int uiNbColum)
 	}
 
 	unsigned int uiLoop;
-	unsigned int uiLoop2;
+	//unsigned int uiLoop2;
 
 
 	ppMTypeMATvalue = new Mtype *[uiNbRow];
 	for (uiLoop = 0; uiLoop < uiNbRow; uiLoop++)
 	{
 		ppMTypeMATvalue[uiLoop] = new Mtype[uiNbColum];
+		/*
 		for (uiLoop2 = 0; uiLoop2 < uiNbColum; uiLoop2++)
 		{
-			ppMTypeMATvalue[uiLoop][uiLoop2] = 0;
-		}
+			ppMTypeMATvalue[uiLoop][uiLoop2] = static_cast<Mtype>(0);
+		}*/
 	}
 	uiMATNbRow = uiNbRow;
 	uiMATNbColum = uiNbColum;
@@ -96,7 +98,7 @@ Mtype CMatrix<Mtype>::MATGetValue(unsigned int uiNumRow, unsigned int uiNumColum
 {
 	if (uiNumRow > uiMATNbRow || uiNumColum > uiMATNbColum || uiNumColum < 0 || uiNumRow < 0)
 	{
-		throw(CException(VALUE_ERROR));
+		throw(CException(VALUE_ERROR, "VALUE_ERROR\nCMatrix<MType>::MATGetValue : index error, index out of range"));
 	}
 
 	return ppMTypeMATvalue[uiNumRow][uiNumColum];
@@ -113,13 +115,30 @@ Mtype CMatrix<Mtype>::MATGetValue(unsigned int uiNumRow, unsigned int uiNumColum
 template <class MType>
 void CMatrix<MType>::MATSetValue(unsigned int uiNumRow, unsigned int uiNumColum, MType mtValue)
 {
-	if (uiNumRow > uiMATNbRow || uiNumColum > uiMATNbColum || uiNumColum < 0 || uiNumRow < 0)
+	if (uiNumRow >= uiMATNbRow || uiNumColum >= uiMATNbColum || uiNumColum < 0 || uiNumRow < 0)
 	{
-		throw(CException(VALUE_ERROR));
+		throw(CException(VALUE_ERROR,"VALUE_ERROR\nCMatrix<MType>::MATSetValue : index error, index out of range"));
 	}
 
 	ppMTypeMATvalue[uiNumRow][uiNumColum] = mtValue;
 }
+
+template <class MType>
+CMatrix<MType> CMatrix<MType>::operator-()
+{
+	unsigned int uiRow, uiColum;
+
+	CMatrix<MType> MATnew(uiMATNbRow, uiMATNbColum);
+	for (uiRow = 0; uiRow < uiMATNbRow; uiRow++)
+	{
+		for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)
+		{
+			MATnew.ppMTypeMATvalue[uiRow][uiColum] = -ppMTypeMATvalue[uiRow][uiColum];
+		}
+	}
+	return MATnew;
+}
+
 
 /********************************************************************************************
  ***** operator+() Addition between 2 matrix with '+'				                    *****
@@ -279,7 +298,7 @@ CMatrix<MType> CMatrix<MType>::operator*(double dCoeff)
 
 template <class MType>
 CMatrix<MType> CMatrix<MType>::operator*(CComplex COMparam) {
-	CMatrix MATnew(this.MATGetNbRow(), this.MATGetNbColumn());
+	CMatrix<MType> MATnew(this.MATGetNbRow(), this.MATGetNbColumn());
 
 	for (unsigned int uiRow = 0; uiRow < MATGetNbRow(); uiRow++) {
 		for (unsigned int uiColumn = 0; uiColumn < this.MATGetNbColumn(); uiColumn++) {
@@ -340,6 +359,22 @@ CMatrix<MType> operator*(double dCoeff, CMatrix<MType> MAT)
 	return MATnew;
 }
 
+/*
+template <class MType, class T>
+CMatrix<MType>::operator CMatrix<T>() const
+{
+	CMatrix<T> result(uiMATNbRow, uiMATNbColum);
+	for (unsigned int uiRow = 0; uiRow < uiMATNbRow; uiRow++)
+	{
+		for (unsigned int uiColum = 0; uiColum < uiMATNbColum; uiColum++)
+		{
+			result.MATSetValue(uiRow, uiColum, static_cast<T>(ppMTypeMATvalue[uiRow][uiColum]));
+		}
+	}
+	return result;
+}*/
+
+/*
 template<typename T, typename MType>
 CMatrix<typename std::common_type<T, MType>::type> operator+(const CMatrix<T>& MATparam1, const CMatrix<MType>& MATparam2)
 {
@@ -357,7 +392,28 @@ CMatrix<typename std::common_type<T, MType>::type> operator+(const CMatrix<T>& M
 	}
 	return MATnew;
 }
+*/
+/*
+template <class MType>
+CMatrix<MType> operator+(CMatrix<MType>& MATParam, CMatrix<MType>& MATParam2)
+{
+	if (MATParam2.uiMATNbColum != MATParam.uiMATNbColum || MATParam2.uiMATNbRow != MATParam.uiMATNbRow)
+	{
+		throw(CException(DIMENSION_ERROR, "DIMENSION_ERROR\nCMatrix<MType> operator+ : can't add Matrix with different sizes"));
+	}
 
+	unsigned int uiRow, uiColum;
+
+	CMatrix<MType> MATnew(MATParam2.uiMATNbRow, MATParam2.uiMATNbColum);
+	for (uiRow = 0; uiRow < MATParam2.uiMATNbRow; uiRow++)
+	{
+		for (uiColum = 0; uiColum < MATParam2.uiMATNbColum; uiColum++)
+		{
+			MATnew.ppMTypeMATvalue[uiRow][uiColum] = MATParam.ppMTypeMATvalue[uiRow][uiColum] + MATParam2.ppMTypeMATvalue[uiRow][uiColum];
+		}
+	}
+	return MATnew;
+}*/
 
 template <class MType>
 std::ostream & operator<<(std::ostream & os, const CMatrix<MType> & MATparam)

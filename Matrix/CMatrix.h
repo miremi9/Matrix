@@ -36,6 +36,30 @@ template <class MType> class CMatrix
 
 		CMatrix(unsigned int nbRow, unsigned int nbColum);
 
+		
+		template <class T>
+		CMatrix(const CMatrix<T> & MATParam)
+		{
+			unsigned int uiRow, uiColum;
+
+			uiMATNbRow = MATParam.MATGetNbRow();
+			uiMATNbColum = MATParam.MATGetNbColum();
+
+			ppMTypeMATvalue = new MType*[uiMATNbRow];
+			for (unsigned int uiLoop = 0; uiLoop < uiMATNbRow; uiLoop++)
+			{
+				ppMTypeMATvalue[uiLoop] = new MType[uiMATNbColum];
+			}
+
+			for (uiRow = 0; uiRow < uiMATNbRow; uiRow++)
+			{
+				for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)
+				{
+					ppMTypeMATvalue[uiRow][uiColum] = static_cast<MType>(MATParam.MATGetValue(uiRow, uiColum));
+				}
+			}
+		}
+
 		/****************************************************************************
 		 ***** CMatrix() constructor  of copy                                   *****
 		 ****************************************************************************
@@ -75,8 +99,8 @@ template <class MType> class CMatrix
 		 **************************************************************************************************************/
 		void MATSetValue(unsigned int uiNumColum, unsigned int uiNumRow, MType mtValue);
 
+		CMatrix operator-();
 
-		
 		CMatrix operator+(CMatrix MATParam);
 
 		CMatrix operator-(CMatrix MATParam);
@@ -99,8 +123,27 @@ template <class MType> class CMatrix
 		 ************************************************************************/
 		CMatrix operator/(double dCoeff);
 
-		template<typename T, typename U>
-		friend CMatrix<typename std::common_type<T, U>::type> operator+(const CMatrix<T>& MATparam1, const CMatrix<U>& MATparam2);
+		
+		template <class T>
+		operator CMatrix<T>() const
+		{
+			CMatrix<T> result(uiMATNbRow, uiMATNbColum);
+			for (unsigned int uiRow = 0; uiRow < uiMATNbRow; uiRow++)
+			{
+				for (unsigned int uiColum = 0; uiColum < uiMATNbColum; uiColum++)
+				{
+					result.MATSetValue(uiRow, uiColum, static_cast<T>(ppMTypeMATvalue[uiRow][uiColum]));
+				}
+			}
+			return result;
+		}
+
+		
+		//template<typename T>
+		//friend CMatrix<typename std::common_type<T, MType>::type> operator+(const CMatrix<T>& MATparam1, const CMatrix<MType>& MATparam2);
+		
+
+		//friend CMatrix operator+(CMatrix MATParam, CMatrix MATParam2);
 
 		template<class T>
 		friend std::ostream & operator<<(std::ostream & os, const CMatrix<T> & MATparam);

@@ -109,6 +109,11 @@ CComplex CComplex::operator/(const CComplex& COMparam) const
 	}
 }
 
+CComplex::operator double() const
+{
+	return dCOMreal;
+}
+
 CComplex operator+(double dValue, const CComplex& COMparam)
 {
 	double drealSum = dValue + COMparam.dCOMreal;

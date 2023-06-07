@@ -113,6 +113,8 @@ int main(int argc, const char **argv)
 		std::cout << EXCparam;
 	}
 
+	std::cout << "\ncomplete\n";
+
 	delete[] ppMATList;
 
 	return 0;

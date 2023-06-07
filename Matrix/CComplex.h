@@ -210,15 +210,70 @@ class CComplex {
 		 ***** / COMparam                                                     *****
 		 **************************************************************************/
 		CComplex operator/(const CComplex& COMparam) const;
+
+		/**************************************************************************
+		 ***** operator double()                                              *****
+		 **************************************************************************
+		 ***** Input : None						                              *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : double                                                *****
+		 ***** Postcondition : return real complex part as double			  *****
+		 **************************************************************************/
+		explicit operator double() const;
  
+		/**************************************************************************
+		 ***** operator+ double                                               *****
+		 **************************************************************************
+		 ***** Input : const CComplex& COMparam                               *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : CComplex                                              *****
+		 ***** Postcondition : return a CComplex thas is the addition of      *****
+		 ***** this and COMparam                                              *****
+		 **************************************************************************/
 		friend CComplex operator+(double dValue, const CComplex& COMparam);
 
+		/**************************************************************************
+		 ***** operator-  double                                              *****
+		 **************************************************************************
+		 ***** Input : const CComplex& COMparam                               *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : CComplex                                              *****
+		 ***** Postcondition : return a CComplex that a is the result of      *****
+		 ***** this - COMparam                                                *****
+		 **************************************************************************/
 		friend CComplex operator-(double dValue, const CComplex& COMparam);
 
+		/**************************************************************************
+		 ***** operator*  double                                              *****
+		 **************************************************************************
+		 ***** Input : const CComplex& COMparam                               *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : CComplex                                              *****
+		 ***** Postcondition : return a CComplex that is the result of this   *****
+		 ***** * COMparam                                                     *****
+		 **************************************************************************/
 		friend CComplex operator*(double dValue, const CComplex& COMparam);
 
+		/**************************************************************************
+		 ***** operator/  double                                              *****
+		 **************************************************************************
+		 ***** Input : const CComplex& COMparam                               *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : CComplex                                              *****
+		 ***** Postcondition : return a CComplex that is the result of this   *****
+		 ***** / COMparam                                                     *****
+		 **************************************************************************/
 		friend CComplex operator/(double dValue, const CComplex& COMparam);
 
+		/**************************************************************************
+		 ***** operator<<		                                              *****
+		 **************************************************************************
+		 ***** Input : const CComplex& COMparam, ostream                      *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : ostream                                               *****
+		 ***** Postcondition : send in ostream flux CComplex values printable *****
+		 ***** format	                                                      *****
+		 **************************************************************************/
 		friend std::ostream & operator<<(std::ostream & os, const CComplex & COMparam);
 };
 

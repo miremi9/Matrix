@@ -3,8 +3,8 @@
 
 void testOPmatrix()
 {
-	CMatrix<double> mat(2, 2);
-	std::cout << mat << std::endl;
+	//CMatrix<double> mat(2, 2);
+	//std::cout << mat << std::endl;
 	
 	CMatrixOperation<double> op;
 	CMatrix<double> * MAT = op.MOPCreateMAT("exemplefile.txt");
@@ -93,44 +93,65 @@ void testComplexMatrix()
 	//CMatrixOperation<CComplex> op;
 
 	// Création d'une matrice de complexe 2x2
-	CMatrix<CComplex> MAT(2, 2);
-	MAT.MATSetValue(0, 0, CComplex(1, 0));
-	MAT.MATSetValue(1, 0, CComplex(2, 0));
-	MAT.MATSetValue(1, 1, CComplex(3, 0));
-	MAT.MATSetValue(0, 1, CComplex(4, 0));
+	CMatrix<CComplex>* MAT = new CMatrix<CComplex>(2, 2);
+	MAT->MATSetValue(0, 0, CComplex(1, 0));
+	MAT->MATSetValue(1, 0, CComplex(2, 0));
+	MAT->MATSetValue(1, 1, CComplex(3, 0));
+	MAT->MATSetValue(0, 1, CComplex(4, 0));
 
 	// Affichage de la matrice
 	std::cout << "Matrice originale : " << std::endl;
-	std::cout << MAT;
+	std::cout << *MAT;
 	std::cout << std::endl;
 
 	// Création d'une matrice identité 2x2
 	CMatrix<CComplex> identity(2, 2);
-	identity.MATSetValue(0, 0, CComplex(1, 0));
-	identity.MATSetValue(1, 1, CComplex(1, 0));
+	//identity.MATSetValue(0, 0, CComplex(1, 0));
+	//identity.MATSetValue(1, 1, CComplex(1, 0));
 
 	
 	// Multiplication de la matrice par la matrice identité
-	CMatrix<CComplex> result = MAT * identity;
+	//CMatrix<CComplex> result = MAT * identity;
 
 	// Affichage du résultat
 	std::cout << "Résultat de la multiplication : " << std::endl;
-	std::cout << result;
+	//std::cout << result;
 
-	result = MAT + MAT;
+	//result = MAT + MAT;
 	std::cout << "Résultat de l'addition de deux originals : " << std::endl;
-	std::cout << result;
+	//std::cout << result;
 
 
-	result = MAT - MAT;
+	//result = MAT - MAT;
 	std::cout << "Résultat de la soustraction de deux originals : " << std::endl;
-	std::cout << result;
+	//std::cout << result;
 	std::cout << std::endl;
 
-	CMatrix<double> mat1(2, 2);
-	CMatrix<CComplex> mat2(2, 2);
-	std::cout << std::endl << mat1 + mat2 << std::endl;
+	CMatrix<float>* mat1 = new CMatrix<float>(2, 2);
+	mat1->MATSetValue(1, 1, 5.83f);
+	mat1->MATSetValue(1, 0, 5.83f);
+	mat1->MATSetValue(0, 0, 5.83f);
+	mat1->MATSetValue(0, 1, 5.83f);
 	
+	CMatrix<int>* mat2 = new CMatrix<int>(2, 2);
+	mat2->MATSetValue(1, 1, 1);
+	mat2->MATSetValue(1, 0, 2);
+	mat2->MATSetValue(0, 0, 3);
+	mat2->MATSetValue(0, 1, 4);
+
+	std::cout << *mat1 << std::endl << *mat2 << std::endl;
+	
+
+	CMatrix<float> mat3 = *mat1 + static_cast<CMatrix<float>>(*mat2);
+	std::cout << mat3;
+
+	//std::cout << 5 + 5.2 << std::endl << 5.2 + 5 << std::endl;
+
+	//std::cout << mat3 << std::endl;
+//	std::cout << std::endl << static_cast<CMatrix<CComplex>>(-(*mat1) + (*mat2)) << std::endl;
+	
+	//std::cout << *mat2 * CComplex(2, 2);
+
 	return;
 }
 
