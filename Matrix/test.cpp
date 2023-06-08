@@ -8,6 +8,7 @@ void testOPmatrix()
 	
 	CMatrixOperation<double> op;
 	CMatrix<double> * MAT = op.MOPCreateMAT("exemplefile.txt");
+
 	std::cout << *MAT;
 
 	CMatrixOperation<CComplex> op2;
@@ -17,20 +18,20 @@ void testOPmatrix()
 
 void testComplexe() 
 {
-	// Test de constructeurs et d'accès
-	CComplex complex1;  // Constructeur par défaut
+	// Test de constructeurs et d'accÃ¨s
+	CComplex complex1;  // Constructeur par dÃ©faut
 	std::cout << "Complex1: " << complex1;
 	std::cout << "Attendu : 0 + 0i\n";
 
-	CComplex complex2(3.5, -2.1);  // Constructeur avec parties réelle et imaginaire spécifiées
+	CComplex complex2(3.5, -2.1);  // Constructeur avec parties rÃ©elle et imaginaire spÃ©cifiÃ©es
 	std::cout << "Complex2: " << complex2;
 	std::cout << "Attendu : 3.5 - 2.1i\n";
 
-	CComplex complex3(4.2);  // Constructeur avec partie réelle spécifiée (partie imaginaire par défaut à 0)
+	CComplex complex3(4.2);  // Constructeur avec partie rÃ©elle spÃ©cifiÃ©e (partie imaginaire par dÃ©faut Ã  0)
 	std::cout << "Complex3: " << complex3;
 	std::cout << "Attendu : 4.2 + 0i\n";
 
-	// Test des opérations mathématiques
+	// Test des opÃ©rations mathÃ©matiques
 	CComplex sum = complex1 + complex2;
 	std::cout << "Sum: " << sum;
 	std::cout << "Attendu : 3.5 - 2.1i\n";
@@ -59,13 +60,13 @@ void testComplexe()
 	std::cout << "Quotient: " << quotient;
 	std::cout << "Attendu : 0,88  + 0,529i\n";
 
-	// Modification des parties réelle et imaginaire
+	// Modification des parties rÃ©elle et imaginaire
 	sum.COMsetReal(2.0);
 	sum.COMsetImaginary(-1.5);
 	std::cout << "Modified Sum: " << sum;
 	std::cout << "Attendu : 2 - 1.5i\n";
 
-	// Accès aux parties réelle et imaginaire
+	// AccÃ¨s aux parties rÃ©elle et imaginaire
 	double realPart = sum.COMgetReal();
 	double imaginaryPart = sum.COMgetImaginary();
 	std::cout << "Real Part: " << realPart << std::endl;
@@ -92,7 +93,7 @@ void testComplexMatrix()
 {
 	//CMatrixOperation<CComplex> op;
 
-	// Création d'une matrice de complexe 2x2
+	// CrÃ©ation d'une matrice de complexe 2x2
 	CMatrix<CComplex>* MAT = new CMatrix<CComplex>(2, 2);
 	MAT->MATSetValue(0, 0, CComplex(1, 0));
 	MAT->MATSetValue(1, 0, CComplex(2, 0));
@@ -104,26 +105,26 @@ void testComplexMatrix()
 	std::cout << *MAT;
 	std::cout << std::endl;
 
-	// Création d'une matrice identité 2x2
+	// CrÃ©ation d'une matrice identitÃ© 2x2
 	CMatrix<CComplex> identity(2, 2);
 	//identity.MATSetValue(0, 0, CComplex(1, 0));
 	//identity.MATSetValue(1, 1, CComplex(1, 0));
 
 	
-	// Multiplication de la matrice par la matrice identité
+	// Multiplication de la matrice par la matrice identitÃ©
 	//CMatrix<CComplex> result = MAT * identity;
 
-	// Affichage du résultat
-	std::cout << "Résultat de la multiplication : " << std::endl;
+	// Affichage du rÃ©sultat
+	std::cout << "RÃ©sultat de la multiplication : " << std::endl;
 	//std::cout << result;
 
 	//result = MAT + MAT;
-	std::cout << "Résultat de l'addition de deux originals : " << std::endl;
+	std::cout << "RÃ©sultat de l'addition de deux originals : " << std::endl;
 	//std::cout << result;
 
 
 	//result = MAT - MAT;
-	std::cout << "Résultat de la soustraction de deux originals : " << std::endl;
+	std::cout << "RÃ©sultat de la soustraction de deux originals : " << std::endl;
 	//std::cout << result;
 	std::cout << std::endl;
 

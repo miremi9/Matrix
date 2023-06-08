@@ -1,4 +1,4 @@
-// main.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
+// main.cpp : Ce fichier contient la fonction 'main'. L'exÃ©cution du programme commence et se termine Ã  cet endroit.
 
 #include <iostream>
 
@@ -8,7 +8,7 @@
 
 
 int main(int argc, const char **argv)
-{	
+{
 	try {
 		if (argc < 2) { throw CException(1, "ARGUMENT_ERROR\nMake sure to execute with a least 1 argument : text file to read\n"); }	//Test if there is at least one argument	
 	}
