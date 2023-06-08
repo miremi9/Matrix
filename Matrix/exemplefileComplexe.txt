@@ -1,4 +1,4 @@
-TypeMatrice =CComplexe
+TypeMatrice =complex
 NBLignes= 2
 NBColonnes  =2
 Matrice  = [  

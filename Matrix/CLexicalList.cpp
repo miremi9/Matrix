@@ -195,7 +195,7 @@ unsigned int LexicalList::LELAddkey(char * pcKey)
 	}
 	if (uiLoop == uiLELnbKey) //if it s full
 	{
-		throw CException(VALUE_ERROR,"LexicalList::LELAddke : Too many value for key");
+		throw CException(VALUE_ERROR,"VALUE_ERROR\nLexicalList::LELAddke : Too many value for key");
 	}
 	key = uiLoop;
 	ppcLELListKey[key] = new char[strlen(pcKey)+1];
@@ -249,7 +249,7 @@ void LexicalList::LELaddValue(unsigned int iKey, char * pcValue)
 {
 	if (iKey<0 || iKey >uiLELnbKey)
 	{
-		throw CException(KEY_ERROR,"LexicalList::LELaddValue : the key isn't valide");
+		throw CException(KEY_ERROR,"KEY_ERROR\nLexicalList::LELaddValue : the key isn't valide");
 	}
 	unsigned int uiLoop;
 	uiLoop = 0;
@@ -262,7 +262,7 @@ void LexicalList::LELaddValue(unsigned int iKey, char * pcValue)
 	}
 	if (uiLoop == uiLELnbValue) //if it s full
 	{
-		throw CException(VALUE_ERROR," LexicalList::LELaddValue : More key input than expected");
+		throw CException(VALUE_ERROR,"KEY_ERROR\nLexicalList::LELaddValue : More key input than expected");
 	}
 
 	uiNumValue = uiLoop;
@@ -290,7 +290,7 @@ char * LexicalList::LELGetValue(const char * pcKey, int numValue) const
 			return pppcLELListValue[uiLoop][numValue];
 		}
 	}
-	throw CException(KEY_ERROR,"LexicalList::LELGetValue : key not found");
+	throw CException(KEY_ERROR,"KEY_ERROR\nLexicalList::LELGetValue : key not found");
 }
 
 /************************************************************************************************

@@ -1,114 +1,180 @@
-// Matrix.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
+// main.cpp : Ce fichier contient la fonction 'main'. L'exÃ©cution du programme commence et se termine Ã  cet endroit.
 
 #include <iostream>
 
-#include "Matrix.h"
-#include "test.h"
+#include "CMatrix.h"
 #include "CMatrixOperation.h"
+#include "CParser.h"
+
+
 int main(int argc, const char **argv)
 {
-	try
-	{
-		testComplexe();
-		testOPmatrix();
-		testComplexe();
-		testComplexMatrix();
-		testGetComplex();
-
-	}
-	catch (CException a)
-	{
-
-	}
-	return 0;
 	try {
-		if (argc < 2) { throw(CException(FILE_ERROR)); }		//Test if there is at least one argument	
+		if (argc < 2) { throw CException(1, "ARGUMENT_ERROR\nMake sure to execute with a least 1 argument : text file to read\n"); }	//Test if there is at least one argument	
 	}
-	catch (CException EXCException) {
-		std::cout << "Error occured during program initialisation\n";
-		EXCException.EXCPrintException();
+	catch (const CException & EXCparam) {
+		std::cerr << "Error occured during program initialisation\n";
+		std::cerr << EXCparam << std::endl;
+		return 1;
 	}
-	
-	int iValue;
-	std::cout << "Please, input a value : \n";		//ask user the constant value
-	std::cin >> iValue;
 
-
-	
-
-	/*Matrix Construction*/
-	CMatrixOperation<double> op;
-	CMatrix<double>* ppMATList = new CMatrix<double>[argc - 1];	//List of matrix
+	unsigned int nbComplexMatrix = 0;
+	unsigned int nbDoubleMatrix = 0;
+	unsigned int ComplexMatrix[50];
+	unsigned int DoubleMatrix[50];
 
 	try {
-		for (int uiloop = 0; uiloop < argc - 1; uiloop++)	//for each file in argument, create associate matrix
+		CParser * pPARcontent;
+		char * buffer;
+
+		for (unsigned int uiloop = 1; uiloop <= (unsigned int) argc - 1; uiloop++)
 		{
-			CMatrix<double> * pMATMatrix = op.MOPCreateMAT(argv[uiloop + 1]);
-			ppMATList[uiloop] = *pMATMatrix;
+			pPARcontent = new CParser(argv[uiloop]);
+			buffer = pPARcontent->PARgetValue("TypeMatrice");
+
+			if (!strcmp(buffer, "double"))
+			{
+				DoubleMatrix[nbDoubleMatrix] = uiloop;
+				nbDoubleMatrix++;
+			}
+			else if (!strcmp(buffer, "complex"))
+			{
+				ComplexMatrix[nbComplexMatrix] = uiloop;
+				nbComplexMatrix++;
+			}
+			else {
+				throw CException(VALUE_ERROR, "VALUE_ERROR\nLibrary don't handle this type of element for Matrix, only double or Complex");
+			}
+			delete pPARcontent;
 		}
 	}
-	catch (CException EXCException) {
-		std::cout << "Error occured during matrix construction\n";
-		EXCException.EXCPrintException();
+	catch (const CException & EXCparam) {
+		std::cerr << "Error occured during program initialisation\n";
+		std::cerr << EXCparam << std::endl;
+		return 1;
 	}
+
+
+	/*Matrix Construction*/
+	CMatrix<double>** ppMATdoubleList = new CMatrix<double>*[nbDoubleMatrix];	//List of matrix double
+	CMatrix<CComplex>** ppMATccomplexList = new CMatrix<CComplex>*[nbComplexMatrix];	//List of matrix complex
+
+	CMatrixOperation<double> MOPdouble;
+	CMatrixOperation<CComplex> MOPccomplex;
+
+	try {
+		for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++)	//for each file in argument, create associate matrix
+		{
+			CMatrix<double> * pMATMatrix = MOPdouble.MOPCreateMAT(argv[DoubleMatrix[uiloop]]);
+			ppMATdoubleList[uiloop] = pMATMatrix;
+		}
+
+		for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++)	//for each file in argument, create associate matrix
+		{
+			CMatrix<CComplex> * pMATMatrix = MOPccomplex.MOPCreateMAT(argv[ComplexMatrix[uiloop]]);
+			ppMATccomplexList[uiloop] = pMATMatrix;
+		}
+	}
+	catch (CException EXCparam) {
+		std::cout << "Error occured during matrix construction\n";
+		std::cout << EXCparam;
+		return 1;
+	}
+
+
+	//show every created matrix
+	std::cout << "Matrix created :\n";
+	for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++) {	//show every complex matrix created
+		std::cout << *ppMATccomplexList[uiloop] << std::endl;
+	}
+	for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++) {	//show every double matrix created
+		std::cout << *ppMATdoubleList[uiloop] << std::endl;
+	}
+	std::cout << std::endl;
+
+
+	//initialise and define the scalar
+	CComplex* COMvalue = new CComplex();
+	std::cout << "Please, input a Scalar value : \n";
+	std::cin >> *COMvalue;
 
 
 	/*Apply methods on matrix*/
 	try {
-		for (int uiloop = 0; uiloop < argc - 1; uiloop++)		//for each matrix, multiply with constant
-		{
-			std::cout << "Matrix" << uiloop + 1 << " * " << iValue << ":\n";
 
-			op.MOPprintMAT(ppMATList[uiloop] * iValue);
+		std::cout << "Matrix product with scalar :\n";						//for each matrix, multiply with scalar
+		for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++) {
+			std::cout << *ppMATccomplexList[uiloop] * *COMvalue << std::endl;
 		}
-		std::cout << "\n";
-
-		for (int uiloop = 0; uiloop < argc - 1; uiloop++)		//for each matrix, divide with constant
-		{
-			std::cout << "Matrix" << uiloop + 1 << " / " << iValue << ":\n";
-			op.MOPprintMAT(ppMATList[uiloop] / iValue);
+		for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++) {
+			std::cout << *ppMATdoubleList[uiloop] * *COMvalue << std::endl;
 		}
-		std::cout << "\n";
+		std::cout << std::endl;
 
-		CMatrix<double> MatSum = ppMATList[0];
-		for (int uiloop = 0; uiloop < argc - 2; uiloop++)		//addition of every matrix
-		{
-			MatSum = MatSum + ppMATList[uiloop + 1];
+
+		std::cout << "Matrix division with scalar :\n";						//for each matrix, divide with scalar
+		for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++) {
+			std::cout << *ppMATccomplexList[uiloop] / *COMvalue << std::endl;
 		}
-		std::cout << "Addition of every Matrix :\n";
-		op.MOPprintMAT(MatSum);
-
-		std::cout << "\n";
-
-		MatSum = ppMATList[0];
-		for (int uiloop = 0; uiloop < argc - 2; uiloop++)		//addition/substraction of every matrix
-		{
-			if (uiloop % 2) {
-				MatSum = MatSum + ppMATList[uiloop + 1];
-			}
-			else {
-				MatSum = MatSum - ppMATList[uiloop + 1];
-			}
+		for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++) {
+			std::cout << *ppMATdoubleList[uiloop] / *COMvalue << std::endl;
 		}
-		std::cout << "Alternating Addition/Substraction of every Matrix :\n";
-		op.MOPprintMAT(MatSum);
-		std::cout << "\n";
+		std::cout << std::endl;
 
-		MatSum = ppMATList[0];
-		for (int uiloop = 0; uiloop < argc - 2; uiloop++)		//multiply matrix
-		{
-			MatSum = MatSum * ppMATList[uiloop + 1];
+
+		unsigned int uiRow;
+		unsigned int uiColum;
+		if (nbComplexMatrix != 0) {			//get matrix index
+			uiRow = ppMATccomplexList[0]->MATGetNbRow(); 
+			uiColum = ppMATccomplexList[0]->MATGetNbColum();
 		}
-		std::cout << "Multiplication of every Matrix :\n";
-		op.MOPprintMAT(MatSum);
+		else {
+			uiRow = ppMATdoubleList[0]->MATGetNbRow();
+			uiColum = ppMATdoubleList[0]->MATGetNbColum();
+		}
+
+
+		std::cout << "Every Matrix addition :\n";
+		CMatrix<CComplex>* pMATsum = new CMatrix<CComplex>(uiRow, uiColum);	//addition every matrix
+		MOPccomplex.MOPfillMATwith(*pMATsum, 0);
+		for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++) {
+			*pMATsum = *pMATsum + *ppMATccomplexList[uiloop];
+		}
+		for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++) {
+			*pMATsum = *pMATsum + *ppMATdoubleList[uiloop];
+		}
+		std::cout << *pMATsum << std::endl;
+
+
+		std::cout << "Every Matrix multiply :\n";						//multiply every matrix
+		MOPccomplex.MOPfillMATwith(*pMATsum, 1);
+		for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++) {
+			*pMATsum = *pMATsum * *ppMATccomplexList[uiloop];
+		}
+		for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++) {
+			*pMATsum = *pMATsum * *ppMATdoubleList[uiloop];
+		}
+		std::cout << *pMATsum << std::endl;
+		delete pMATsum;
 	}
-	catch (CException EXCException) {
+	catch (CException EXCparam) {
 		std::cout << "Error occured during matrix operation\n";
-		EXCException.EXCPrintException();
+		std::cout << EXCparam;
+		return 1;
 	}
 
-	delete[] ppMATList;
+
+	/*Memory management*/
+	for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++) {
+		delete ppMATccomplexList[uiloop];
+	}
+	for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++) {
+		delete ppMATdoubleList[uiloop];
+	}
+
+	delete[] ppMATdoubleList;
+	delete[] ppMATccomplexList;
+	delete COMvalue;
 
 	return 0;
-	
 }

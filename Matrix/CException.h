@@ -1,96 +1,112 @@
 #ifndef C_EXCEPTION_H
 #define C_EXCEPTION_H
 
-#define FILE_ERROR 1
-#define FILE_CONTENT_ERROR 2
-#define VALUE_ERROR 3
-#define TYPE_ERROR 4
-#define ID_ERROR 5
-#define KEY_ERROR 6
-#define OBJECT_ERROR 7
+#include <iostream>
 
 
 class CException {
-//Attributs
-private :
+	//Attributes
+	private :
 
-	int iEXCvalue;
+		int iEXCvalue;			//CException error value
 
-	char * pcEXCMessage;
+		char * pcEXCMessage;	//CException string message
 
-//Constructors & Destructors
-public :
-	/**********************************************************************************************
-	 ***** Default class constructor                                                          *****
-	 **********************************************************************************************
-	 ***** Input : None                                                                       *****
-	 ***** Precondition: None                                                                 *****
-	 ***** Output:  None                                                                      *****
-	 ***** Postcondition : Create an CException Object with default value 0                   *****
-	 **********************************************************************************************/
-	CException();
+	//Constructors & Destructors
+	public :
+
+		/**********************************************************************************************
+		 ***** Default class constructor                                                          *****
+		 **********************************************************************************************
+		 ***** Input : None                                                                       *****
+		 ***** Precondition: None                                                                 *****
+		 ***** Output:  None                                                                      *****
+		 ***** Postcondition : Create an CException Object with default value 0                   *****
+		 **********************************************************************************************/
+		CException();
 	
-	/**********************************************************************************************
-	 ***** Class constructor                                                                  *****
-	 **********************************************************************************************
-	 ***** Input : unsigned int                                                               *****
-	 ***** Precondition: None                                                                 *****
-	 ***** Output:  None                                                                      *****
-	 ***** Postcondition : Create an CException Object with inputed value                     *****
-	 **********************************************************************************************/
-	CException(int iValue);
+		/**********************************************************************************************
+		 ***** Class constructor                                                                  *****
+		 **********************************************************************************************
+		 ***** Input : unsigned int                                                               *****
+		 ***** Precondition: None                                                                 *****
+		 ***** Output:  None                                                                      *****
+		 ***** Postcondition : Create an CException Object with inputed value                     *****
+		 **********************************************************************************************/
+		CException(int iValue);
 
 
-	/**********************************************************************************************
-	 ***** Class constructor                                                                  *****
-	 **********************************************************************************************
-	 ***** Input : unsigned int ,char * message                                               *****
-	 ***** Precondition: None                                                                 *****
-	 ***** Output:  None                                                                      *****
-	 ***** Postcondition : Create an CException Object with inputed value                     *****
-	 **********************************************************************************************/
-	CException(int iValue, const char * pcMessage);
+		/**********************************************************************************************
+		 ***** Class constructor                                                                  *****
+		 **********************************************************************************************
+		 ***** Input : unsigned int ,char * message                                               *****
+		 ***** Precondition: None                                                                 *****
+		 ***** Output:  None                                                                      *****
+		 ***** Postcondition : Create an CException Object with inputed value                     *****
+		 **********************************************************************************************/
+		CException(int iValue, const char * pcMessage);
+
+		/**********************************************************************************************
+		 ***** Class copie constructor                                                            *****
+		 **********************************************************************************************
+		 ***** Input : CException EXCparam			                                              *****
+		 ***** Precondition: None                                                                 *****
+		 ***** Output:  None                                                                      *****
+		 ***** Postcondition : Create an CException Object with copied value from inputed one     *****
+		 **********************************************************************************************/
+		CException(const CException & EXCparam);
 	
-	/************************************************************************
-	*****Destructor | ~CException()                                     *****
-	*****Input : None                                                   *****
-	*****Precondition : None                                            *****
-	*****Output : None                                                  *****
-	*****Postconditions : Attribut of this are deleted                  *****
-	************************************************************************/
-	~CException();
+		/************************************************************************
+		 *****Destructor | ~CException()                                     *****
+		 *****Input : None                                                   *****
+		 *****Precondition : None                                            *****
+		 *****Output : None                                                  *****
+		 *****Postconditions : Attribut of this are deleted                  *****
+		 ************************************************************************/
+		~CException();
 	
-//Methods
-public :
+	//Methods
+	public :
 
-	/************************************************************************
-	*****EXCsetValue()                                                  *****
-	*****Input :  int ivalue                                            *****
-	*****Precondition : ivalue is in the range of error set by the class*****
-	*****                                                               *****
-	*****Output : void                                                  *****
-	*****Postconditions : change the value of this                      *****
-	************************************************************************/
-	void EXCsetValue( int ivalue) { iEXCvalue = ivalue; };
+		/************************************************************************
+		***** EXCsetValue()                                                  *****
+		*****Input :  int ivalue                                            *****
+		*****Precondition : ivalue is in the range of error set by the class*****
+		*****                                                               *****
+		*****Output : void                                                  *****
+		*****Postconditions : change the value of this                      *****
+		************************************************************************/
+		void EXCsetValue( int ivalue) { iEXCvalue = ivalue; };
 
-	/************************************************************************
-	*****EXCgetValue()                                                  *****
-	*****Input : None                                                   *****
-	*****Precondition : None                                            *****
-	*****Output : unsigned int                                          *****
-	*****Postconditions : None                                          *****
-	************************************************************************/
-	unsigned int EXCgetValue() const { return iEXCvalue; };
+		/************************************************************************
+		***** EXCgetValue()                                                 *****
+		*************************************************************************
+		*****Input : None                                                   *****
+		*****Precondition : None                                            *****
+		*****Output : unsigned int                                          *****
+		*****Postconditions : None                                          *****
+		************************************************************************/
+		unsigned int EXCgetValue() const { return iEXCvalue; };
 
-	/************************************************************************
-	*****EXCPrintException()                                            *****
-	*****Input : None                                                   *****
-	*****Precondition : None                                            *****
-	*****Output : void                                                  *****
-	*****Postconditions : None                                          *****
-	************************************************************************/
-	void EXCPrintException();
+		/**********************************************************************************************
+		 ***** CException operator=                                                               *****
+		 **********************************************************************************************
+		 ***** Input : CException EXCparam			                                              *****
+		 ***** Precondition: None                                                                 *****
+		 ***** Output:  None                                                                      *****
+		 ***** Postcondition : return copie CException										      *****
+		 **********************************************************************************************/
+		CException & operator=(const CException & EXCparam);
 
+		/**********************************************************************************************
+		 ***** CException operator<<	                                                          *****
+		 **********************************************************************************************
+		 ***** Input : ostream os, CException EXCparam			                                  *****
+		 ***** Precondition: None                                                                 *****
+		 ***** Output:  None                                                                      *****
+		 ***** Postcondition : print CExeption values in stream								      *****
+		 **********************************************************************************************/
+		friend std::ostream & operator<<(std::ostream & os, const CException & EXCparam);
 };
 
-#endif
+#endif	//C_EXCEPTION_H

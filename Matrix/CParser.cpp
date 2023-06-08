@@ -32,17 +32,13 @@ CParser::CParser()
 ************************************************************************/
 CParser::CParser(const CParser & PARparam)
 {
-	// Copy the number of items
+	//copy and allocate
 	uiNbItem = PARparam.uiNbItem;
 
-	// Allocate memory for key list
 	ppcPARKeyList = new char*[uiNbItem];
-
-	// Allocate memory for value list
 	ppcPARValueList = new char*[uiNbItem];
 
-	// Copy the key-value pairs
-	for (unsigned int i = 0; i < uiNbItem; i++)
+	for (unsigned int i = 0; i < uiNbItem; i++)		// Copy the key-value pairs
 	{
 		// Copy the key
 		size_t keyLength = strlen(PARparam.ppcPARKeyList[i]) + 1;
@@ -143,7 +139,7 @@ void CParser::PARReadFile(const char * pcFileName)
 	else
 	{
 		//printf("The file 'crt_fopen_s.c' was not opened\n");
-		throw CException(FILE_ERROR, " CParser::PARReadFile : File was not opened");
+		throw CException(FILE_ERROR, " FILE_ERROR\nCParser::PARReadFile : File was not opened");
 	}
 	// Store the content of the file
 
@@ -238,5 +234,5 @@ char * CParser::PARgetValue(const char pcKey[]) const
 			return ppcPARValueList[uiLoop];
 		}
 	};
-	throw CException(KEY_ERROR, "CParser::PARgetValue : Key not found");
+	throw CException(KEY_ERROR, "KEY_ERROR\nCParser::PARgetValue : Key not found");
 }

@@ -2,7 +2,10 @@
 #define C_STRING_OPERATION_H	
 
 #include "CException.h"
-#include <iostream>
+
+#define VALUE_ERROR 3
+
+
 class CStringOperation {
 	public:
 
@@ -65,4 +68,4 @@ class CStringOperation {
 
 };
 
-#endif
+#endif	//C_STRING_OPERATION_H

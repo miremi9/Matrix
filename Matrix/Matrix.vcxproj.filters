@@ -33,17 +33,14 @@
     <ClCompile Include="test.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="ParseTab.cpp">
+    <ClCompile Include="CComplex.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="CComplex.cpp">
+    <ClCompile Include="CParseTable.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="CLexicalList.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -59,20 +56,23 @@
     <ClInclude Include="test.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="ParseTab.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="CComplex.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CMatrixOperation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="CMatrix.ipp">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
     <ClInclude Include="CMatrixOperation.ipp">
       <Filter>Fichiers de ressources</Filter>
     </ClInclude>
-    <ClInclude Include="CMatrix.ipp">
-      <Filter>Fichiers de ressources</Filter>
+    <ClInclude Include="CParseTable.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="CMatrix.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

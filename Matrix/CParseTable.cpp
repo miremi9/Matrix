@@ -1,4 +1,5 @@
-#include "ParseTab.h"
+#include "CParseTable.h"
+
 /**************************************************************************
  ***** ParseTab                                                       *****
  **************************************************************************
@@ -10,7 +11,7 @@
  ***** Postcondition : set the value of pMATparam with the array      *****
  ***** values                                                         *****
  **************************************************************************/
-void ParseTab(char * pcContent, CMatrix<double> * pMATparam,unsigned int Nblignes, unsigned int NbColonnes)
+void CParseTable::PTAparseTable(char * pcContent, CMatrix<double> * pMATparam,unsigned int Nblignes, unsigned int NbColonnes)
 {
 	CStringOperation op;
 	unsigned int index = 0;
@@ -35,7 +36,6 @@ void ParseTab(char * pcContent, CMatrix<double> * pMATparam,unsigned int Nbligne
 		token = strtok_s(line," ", &pLineEnd);
 		for (unsigned int uiline = 0; uiline < NbColonnes; uiline++)
 		{
-			
 			dValue = atof(token);
 			pMATparam->MATSetValue(uiCol, uiline, dValue);
 
@@ -59,7 +59,7 @@ void ParseTab(char * pcContent, CMatrix<double> * pMATparam,unsigned int Nbligne
  ***** Postcondition : set the value of pMATparam with the array      *****
  ***** values                                                         *****
  **************************************************************************/
-void ParseTab(char * pcContent, CMatrix<CComplex>* pMATparam, unsigned int Nblignes, unsigned int NbColonnes)
+void CParseTable::PTAparseTable(char * pcContent, CMatrix<CComplex>* pMATparam, unsigned int Nblignes, unsigned int NbColonnes)
 {
 	CStringOperation op;
 	unsigned int index = 0;

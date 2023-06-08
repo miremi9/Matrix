@@ -1,54 +1,168 @@
 #include "CComplex.h"
 
+/**************************************************************************
+ ***** Default class Constructor | CComplex                           *****
+ **************************************************************************
+ ***** Input : None                                                   *****
+ ***** precondtion : None                                             *****
+ ***** Output : None                                                  *****
+ ***** Postcondition : Attribut of this are initialized               *****
+ **************************************************************************/
 CComplex::CComplex()
 {
 	dCOMreal = 0.0;
 	dCOMimaginary = 0.0;
 }
 
-
-// Constructeur avec parties réelle et imaginaire spécifiées
-CComplex::CComplex(double dreal, double dimaginary)
+/**************************************************************************
+ ***** Constructor | CComplex                                         *****
+ **************************************************************************
+ ***** Input : double real, double imaginary                          *****
+ ***** precondtion : None                                             *****
+ ***** Output : None                                                  *****
+ ***** Postcondition : Attribut of this are initialized according     *****
+ ***** tothe parameters                                               *****
+ **************************************************************************/
+CComplex::CComplex(double dReal, double dImaginary)
 {
-	dCOMreal = dreal;
-	dCOMimaginary = dimaginary;
-
+	dCOMreal = dReal;
+	dCOMimaginary = dImaginary;
 }
 
-// Constructeur avec partie réelle spécifiée et partie imaginaire par défaut à zéro
-CComplex::CComplex(double dreal)
+/**************************************************************************
+ ***** Constructor | CComplex                                         *****
+ **************************************************************************
+ ***** Input : double real                                            *****
+ ***** precondtion : None                                             *****
+ ***** Output : None                                                  *****
+ ***** Postcondition : Attribut of this are initialized according     *****
+ ***** tothe parameters                                               *****
+ **************************************************************************/CComplex::CComplex(double dreal)
 {
 	dCOMreal = dreal;
 	dCOMimaginary = 0;
 }
 
+/**************************************************************************
+ ***** Constructor of Copy | CComplex                                 *****
+ **************************************************************************
+ ***** Input : const CComplex & COMparam                              *****
+ ***** precondtion : COMparam must be initialized                     *****
+ ***** Output : None                                                  *****
+ ***** Postcondition : Attribut of this are initialized and it        *****
+ ***** attributhave the same value as COMparam                        *****
+ **************************************************************************/
 CComplex::CComplex(const CComplex & COMparam) {
 	dCOMreal = COMparam.dCOMreal;
 	dCOMimaginary = COMparam.dCOMimaginary;
 }
 
-CComplex & CComplex::operator=(const CComplex& other) {
-	if (this != &other) {
-		dCOMreal = other.dCOMreal;
-		dCOMimaginary = other.dCOMimaginary;
+/**************************************************************************
+ ***** operator=                                                      *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex &                                            *****
+ ***** Postcondition : this has the same value as COMparam            *****
+ **************************************************************************/
+CComplex & CComplex::operator=(const CComplex & COMparam)
+{
+	if (this != &COMparam) {
+		dCOMreal = COMparam.dCOMreal;
+		dCOMimaginary = COMparam.dCOMimaginary;
 	}
 	return *this;
 }
 
-CComplex& CComplex::operator+=(const CComplex& other) {
-	dCOMreal += other.dCOMreal;
-	dCOMimaginary += other.dCOMimaginary;
+/**************************************************************************
+ ***** operator+=                                                     *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex &                                            *****
+ ***** Postcondition : this as the value of this + the value of       *****
+ ***** COMparam                                                       *****
+ **************************************************************************/
+CComplex & CComplex::operator+=(const CComplex& COMparam)
+{
+	dCOMreal += COMparam.dCOMreal;
+	dCOMimaginary += COMparam.dCOMimaginary;
 	return *this;
 }
-// Opérateur d'addition
-CComplex CComplex::operator+(const CComplex& COMparam) const
+
+/**************************************************************************
+ ***** operator-=                                                     *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex &                                            *****
+ ***** Postcondition : this as the value of this - the value of       *****
+ ***** COMparam                                                       *****
+ **************************************************************************/
+CComplex & CComplex::operator-=(const CComplex& COMparam)
+{
+	dCOMreal -= COMparam.dCOMreal;
+	dCOMimaginary -= COMparam.dCOMimaginary;
+	return *this;
+}
+
+/**************************************************************************
+ ***** operator*=                                                     *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex &                                            *****
+ ***** Postcondition : this as the value of this * the value of       *****
+ ***** COMparam                                                       *****
+ **************************************************************************/
+CComplex & CComplex::operator*=(const CComplex& COMparam)
+{
+	dCOMreal = (*this * COMparam).COMgetReal();
+	dCOMimaginary = (*this * COMparam).COMgetImaginary();
+	return *this;
+}
+
+/**************************************************************************
+ ***** operator/=                                                     *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex &                                            *****
+ ***** Postcondition : this as the value of this / the value of       *****
+ ***** COMparam                                                       *****
+ **************************************************************************/
+CComplex & CComplex::operator/=(const CComplex& COMparam)
+{
+	dCOMreal = (*this / COMparam).COMgetReal();
+	dCOMimaginary = (*this / COMparam).COMgetImaginary();
+	return *this;
+}
+
+/**************************************************************************
+ ***** operator+                                                      *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex thas is the addition of      *****
+ ***** this and COMparam                                              *****
+ **************************************************************************/
+CComplex CComplex::operator+(const CComplex & COMparam) const
 {
 	double realSum = dCOMreal + COMparam.dCOMreal;
 	double imaginarySum = dCOMimaginary + COMparam.dCOMimaginary;
 	return CComplex(realSum, imaginarySum);
 }
 
-// Opérateur de soustraction
+/**************************************************************************
+ ***** operator-                                                      *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that a is the result of      *****
+ ***** this - COMparam                                                *****
+ **************************************************************************/
 CComplex CComplex::operator-(const CComplex& COMparam) const
 {
 	double realDiff = dCOMreal - COMparam.dCOMreal;
@@ -56,7 +170,31 @@ CComplex CComplex::operator-(const CComplex& COMparam) const
 	return CComplex(realDiff, imaginaryDiff);
 }
 
-// Opérateur de multiplication
+/**************************************************************************
+ ***** operator-                                                      *****
+ **************************************************************************
+ ***** Input : None							                          *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that a is the result of      *****
+ ***** this * (-1)		                                              *****
+ **************************************************************************/
+CComplex CComplex::operator-() const
+{
+	double realDiff = dCOMreal * (-1);
+	double imaginaryDiff = dCOMimaginary * (-1);
+	return CComplex(realDiff, imaginaryDiff);
+}
+
+/**************************************************************************
+ ***** operator*                                                      *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that is the result of this   *****
+ ***** * COMparam                                                     *****
+ **************************************************************************/
 CComplex CComplex::operator*(const CComplex& COMparam) const
 {
 	double realProduct = dCOMreal * COMparam.dCOMreal - dCOMimaginary * COMparam.dCOMimaginary;
@@ -64,74 +202,146 @@ CComplex CComplex::operator*(const CComplex& COMparam) const
 	return CComplex(realProduct, imaginaryProduct);
 }
 
-// Opérateur de division
+/**************************************************************************
+ ***** operator/                                                      *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that is the result of this   *****
+ ***** / COMparam                                                     *****
+ **************************************************************************/
 CComplex CComplex::operator/(const CComplex& COMparam) const
 {
 	double denominator = COMparam.dCOMreal * COMparam.dCOMreal + COMparam.dCOMimaginary * COMparam.dCOMimaginary;
-	if (denominator != 0) {
+
+	if (denominator != 0)
+	{
 		double realQuotient = (dCOMreal * COMparam.dCOMreal + dCOMimaginary * COMparam.dCOMimaginary) / denominator;
 		double imaginaryQuotient = (dCOMimaginary * COMparam.dCOMreal - dCOMreal * COMparam.dCOMimaginary) / denominator;
 		return CComplex(realQuotient, imaginaryQuotient);
 	}
 	else {
-		throw new CException(VALUE_ERROR, "Division by 0");
+		throw CException(VALUE_ERROR, "VALUE_ERROR\nCComplex::operator/ : Division by 0");
 	}
 }
 
-void CComplex::print() const
+/**************************************************************************
+ ***** operator double()                                              *****
+ **************************************************************************
+ ***** Input : None						                              *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : double                                                *****
+ ***** Postcondition : return real complex part as double			  *****
+ **************************************************************************/
+CComplex::operator double() const
 {
-	std::cout << dCOMreal;
-	if (dCOMimaginary >= 0)
-		std::cout << " + " << dCOMimaginary << "i";
-	else
-		std::cout << " - " << -dCOMimaginary << "i";
-	std::cout << std::endl;
+	return dCOMreal;
 }
 
-std::ostream& operator<<(std::ostream& os, const CComplex& complex)
+/**************************************************************************
+ ***** operator+ double                                               *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex thas is the addition of      *****
+ ***** this and COMparam                                              *****
+ **************************************************************************/
+CComplex operator+(double dValue, const CComplex& COMparam)
 {
-	if (complex.dCOMimaginary < 0)
-	{
-		os << complex.dCOMreal<< complex.dCOMimaginary << "i";
+	double drealSum = dValue + COMparam.dCOMreal;
+	double dimaginarySum = COMparam.dCOMimaginary;
+	return CComplex(drealSum, dimaginarySum);
+}
+
+/**************************************************************************
+ ***** operator-  double                                              *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that a is the result of      *****
+ ***** this - COMparam                                                *****
+ **************************************************************************/
+CComplex operator-(double dValue, const CComplex& COMparam)
+{
+	double drealSum = dValue - COMparam.dCOMreal;
+	double dimaginarySum = -COMparam.dCOMimaginary;
+	return CComplex(drealSum, dimaginarySum);
+}
+
+/**************************************************************************
+ ***** operator*  double                                              *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that is the result of this   *****
+ ***** * COMparam                                                     *****
+ **************************************************************************/
+CComplex operator*(double dValue, const CComplex& COMparam)
+{
+	double drealProduct = dValue * COMparam.dCOMreal;
+	double dimaginaryProduct =dValue * COMparam.dCOMimaginary;
+	return CComplex(drealProduct, dimaginaryProduct);
+}
+
+/**************************************************************************
+ ***** operator/  double                                              *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam                               *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : CComplex                                              *****
+ ***** Postcondition : return a CComplex that is the result of this   *****
+ ***** / COMparam                                                     *****
+ **************************************************************************/
+CComplex operator/(double dValue, const CComplex& COMparam)
+{
+	if (COMparam.COMgetReal() == 0 && COMparam.COMgetImaginary() == 0) {
+		throw CException(VALUE_ERROR, "VALUE_ERROR\nCComplex::operator/ : Division by 0");
 	}
-	else
+
+	CComplex COMtemp(dValue);
+	double dreal = (COMtemp / COMparam).COMgetReal();
+	double dimaginary = (COMtemp / COMparam).COMgetImaginary();
+	return CComplex(dreal, dimaginary);
+}
+/**************************************************************************
+ ***** operator<<		                                              *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam, ostream                      *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : ostream                                               *****
+ ***** Postcondition : send in ostream flux CComplex values printable *****
+ ***** format	                                                      *****
+ **************************************************************************/
+std::ostream & operator<<(std::ostream & os, const CComplex & COMparam)
+{
+	os << COMparam.dCOMreal;
+	if (COMparam.dCOMimaginary >= 0)
 	{
-		os << complex.dCOMreal << "+" << complex.dCOMimaginary << "i";
+		os << "+";
 	}
-	
+	os << COMparam.dCOMimaginary << "i";
+
 	return os;
 }
 
-CComplex operator*(double value1, CComplex value2) {
-	double real = value1 * value2.getReal();
-	double imaginary = value1 * value2.getImaginary();
-	return CComplex(real, imaginary);
-}
-CComplex operator*( CComplex value2, double value1) {
-	double real = value1 * value2.getReal();
-	double imaginary = value1 * value2.getImaginary();
-	return CComplex(real, imaginary);
-}
-
-CComplex operator/(double value1, CComplex value2) {
-	double denominator = value2.dCOMreal * value2.dCOMreal + value2.dCOMimaginary * value2.dCOMimaginary;
-	double realPart = (value1 * value2.dCOMreal) / denominator;
-	double imaginaryPart = (-value1 * value2.dCOMimaginary) / denominator;
-	return CComplex(realPart, imaginaryPart);
-}
-
-// Surcharge de l'opérateur de division / (CComplex, double)
-CComplex operator/(CComplex value2, double value1) {
-	double realPart = value2.dCOMreal / value1;
-	double imaginaryPart = value2.dCOMimaginary / value1;
-	return CComplex(realPart, imaginaryPart);
-}
-
-CComplex operator-(double value1, CComplex value2) {
-	return CComplex(value1 - value2.dCOMreal, -value2.dCOMimaginary);
-}
-
-
-CComplex operator-(CComplex value2, double value1) {
-	return CComplex(value2.dCOMreal - value1, value2.dCOMimaginary);
+/**************************************************************************
+ ***** operator>>		                                              *****
+ **************************************************************************
+ ***** Input : const CComplex& COMparam, istream                      *****
+ ***** precondtion : COMparam is initialized                          *****
+ ***** Output : ostream                                               *****
+ ***** Postcondition : create CComplex from inputed value			  *****
+ **************************************************************************/
+std::istream& operator>>(std::istream& is, CComplex& COMparam) {
+	double real, imaginary;
+	std::cout << "Enter the real part: ";
+    is >> real;
+    std::cout << "Enter the imaginary part: ";
+	is >> imaginary;
+	COMparam = CComplex(real, imaginary);
+	return is;
 }
