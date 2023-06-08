@@ -99,19 +99,19 @@ template <class MType> class CMatrix
 		 **************************************************************************************************************/
 		void MATSetValue(unsigned int uiNumColum, unsigned int uiNumRow, MType mtValue);
 
-		CMatrix operator-();
+		CMatrix operator-() const;
 
-		CMatrix operator+(CMatrix MATParam);
+		CMatrix operator+(const CMatrix& MATParam) const;
 
-		CMatrix operator-(CMatrix MATParam);
+		CMatrix operator-(const CMatrix& MATParam) const;
 
-		void operator=(CMatrix MATParam);
+		CMatrix& operator=(const CMatrix & MATParam);
 
-		CMatrix operator*(CMatrix MATParam);
+		CMatrix operator*(const CMatrix& MATParam) const;
 
-		CMatrix operator*(double dCoeff);
+		CMatrix operator*(double dCoeff) const;
 
-		CMatrix operator*(CComplex COMparam);
+		CMatrix<CComplex> operator*(const CComplex & COMparam) const;
 
 		/************************************************************************
 		 ***** operator/() Divide matrix by a value with '/'                *****
@@ -125,7 +125,7 @@ template <class MType> class CMatrix
 
 		
 		template <class T>
-		operator CMatrix<T>() const
+		explicit operator CMatrix<T>() const
 		{
 			CMatrix<T> result(uiMATNbRow, uiMATNbColum);
 			for (unsigned int uiRow = 0; uiRow < uiMATNbRow; uiRow++)

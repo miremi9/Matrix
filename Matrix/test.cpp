@@ -127,30 +127,29 @@ void testComplexMatrix()
 	//std::cout << result;
 	std::cout << std::endl;
 
-	CMatrix<float>* mat1 = new CMatrix<float>(2, 2);
+	CMatrix<double>* mat1 = new CMatrix<double>(2, 2);
 	mat1->MATSetValue(1, 1, 5.83f);
 	mat1->MATSetValue(1, 0, 5.83f);
 	mat1->MATSetValue(0, 0, 5.83f);
 	mat1->MATSetValue(0, 1, 5.83f);
 	
-	CMatrix<int>* mat2 = new CMatrix<int>(2, 2);
-	mat2->MATSetValue(1, 1, 1);
+	CMatrix<CComplex>* mat2 = new CMatrix<CComplex>(2, 2);
+	mat2->MATSetValue(1, 1, CComplex(1,5));
 	mat2->MATSetValue(1, 0, 2);
 	mat2->MATSetValue(0, 0, 3);
 	mat2->MATSetValue(0, 1, 4);
 
 	std::cout << *mat1 << std::endl << *mat2 << std::endl;
 	
+	std::cout << *mat2 + *mat1 << std::endl;
 
-	CMatrix<float> mat3 = *mat1 + static_cast<CMatrix<float>>(*mat2);
-	std::cout << mat3;
+	std::cout << *mat2 * 5 << std::endl;
 
-	//std::cout << 5 + 5.2 << std::endl << 5.2 + 5 << std::endl;
+	std::cout << *mat1 * 5 << std::endl;
 
-	//std::cout << mat3 << std::endl;
-//	std::cout << std::endl << static_cast<CMatrix<CComplex>>(-(*mat1) + (*mat2)) << std::endl;
-	
-	//std::cout << *mat2 * CComplex(2, 2);
+	std::cout << *mat2 * CComplex(2,5) << std::endl;
+
+	std::cout << *mat1 * CComplex(2, 5) << std::endl;
 
 	return;
 }

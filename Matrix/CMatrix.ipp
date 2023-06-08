@@ -124,7 +124,7 @@ void CMatrix<MType>::MATSetValue(unsigned int uiNumRow, unsigned int uiNumColum,
 }
 
 template <class MType>
-CMatrix<MType> CMatrix<MType>::operator-()
+CMatrix<MType> CMatrix<MType>::operator-() const
 {
 	unsigned int uiRow, uiColum;
 
@@ -149,7 +149,7 @@ CMatrix<MType> CMatrix<MType>::operator-()
  ***** Postconditions : every element of CMatrix is the addition of this and MATParam	*****
  ********************************************************************************************/
 template <class MType>
-CMatrix<MType> CMatrix<MType>::operator+(CMatrix MATParam)
+CMatrix<MType> CMatrix<MType>::operator+(const CMatrix& MATParam) const
 {
 	if (uiMATNbColum != MATParam.uiMATNbColum || uiMATNbRow != MATParam.uiMATNbRow)
 	{
@@ -178,7 +178,7 @@ CMatrix<MType> CMatrix<MType>::operator+(CMatrix MATParam)
  ***** Postconditions : every element of CMatrix is the minus of this and MATParam	*****
  ****************************************************************************************/
 template <class MType>
-CMatrix<MType> CMatrix<MType>::operator-(CMatrix MATParam)
+CMatrix<MType> CMatrix<MType>::operator-(const CMatrix& MATParam) const
 {
 	if (uiMATNbColum != MATParam.uiMATNbColum || uiMATNbRow != MATParam.uiMATNbRow)
 	{
@@ -207,7 +207,7 @@ CMatrix<MType> CMatrix<MType>::operator-(CMatrix MATParam)
  ***** Postconditions : this as the sam value as MAtParm            *****
  ************************************************************************/
 template <class MType>
-void CMatrix<MType>::operator=(CMatrix MATParam)
+CMatrix<MType>& CMatrix<MType>::operator=(const CMatrix<MType>& MATParam)
 {
 	unsigned int uiRow, uiColum;
 
@@ -233,6 +233,8 @@ void CMatrix<MType>::operator=(CMatrix MATParam)
 			ppMTypeMATvalue[uiRow][uiColum] = MATParam.ppMTypeMATvalue[uiRow][uiColum];
 		}
 	}
+
+	return *this;
 }
 
 /*************************************************************************************
@@ -244,7 +246,7 @@ void CMatrix<MType>::operator=(CMatrix MATParam)
  ***** Postconditions : every element of CMatrix is divide by the double		 *****
  *************************************************************************************/
 template <class MType>
-CMatrix<MType> CMatrix<MType>::operator*(CMatrix MATParam)
+CMatrix<MType> CMatrix<MType>::operator*(const CMatrix & MATParam) const
 {
 	if (uiMATNbColum != MATParam.uiMATNbRow) {
 		throw(CException(DIMENSION_ERROR));
@@ -280,7 +282,7 @@ CMatrix<MType> CMatrix<MType>::operator*(CMatrix MATParam)
  ***** Postconditions : every element of CMatrix is multiplie by the dCOeff *****
  ********************************************************************************/
 template <class MType>
-CMatrix<MType> CMatrix<MType>::operator*(double dCoeff)
+CMatrix<MType> CMatrix<MType>::operator*(double dCoeff) const
 {
 	CMatrix<MType> MATnew(uiMATNbRow, uiMATNbColum);
 
@@ -297,14 +299,14 @@ CMatrix<MType> CMatrix<MType>::operator*(double dCoeff)
 
 
 template <class MType>
-CMatrix<MType> CMatrix<MType>::operator*(CComplex COMparam) {
-	CMatrix<MType> MATnew(this.MATGetNbRow(), this.MATGetNbColumn());
+CMatrix<CComplex> CMatrix<MType>::operator*(const CComplex & COMparam) const
+{
+	CMatrix<CComplex> MATnew(this->MATGetNbRow(), this->MATGetNbColum());
 
 	for (unsigned int uiRow = 0; uiRow < MATGetNbRow(); uiRow++) {
-		for (unsigned int uiColumn = 0; uiColumn < this.MATGetNbColumn(); uiColumn++) {
-			CComplex COMValue = MATGetValue(uiRow, uiColumn);
-			COMValue *= COMparam;
-			MATnew.MATSetValue(uiRow, uiColumn, COMValue);
+		for (unsigned int uiColumn = 0; uiColumn < this->MATGetNbColum(); uiColumn++)
+		{
+			MATnew.MATSetValue(uiRow, uiColumn, MATGetValue(uiRow, uiColumn) * COMparam);
 		}
 	}
 
