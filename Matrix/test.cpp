@@ -134,7 +134,7 @@ void testComplexMatrix()
 	mat1->MATSetValue(0, 1, 5.83f);
 	
 	CMatrix<CComplex>* mat2 = new CMatrix<CComplex>(2, 2);
-	mat2->MATSetValue(1, 1, CComplex(1,5));
+	mat2->MATSetValue(1, 1, CComplex(1.2,5));
 	mat2->MATSetValue(1, 0, 2);
 	mat2->MATSetValue(0, 0, 3);
 	mat2->MATSetValue(0, 1, 4);
@@ -143,13 +143,25 @@ void testComplexMatrix()
 	
 	std::cout << *mat2 + *mat1 << std::endl;
 
+	std::cout << std::endl;
+
 	std::cout << *mat2 * 5 << std::endl;
 
 	std::cout << *mat1 * 5 << std::endl;
 
+	std::cout << 5.1 * *mat1 << std::endl;
+
+	std::cout << CComplex(2, 5) * *mat1 << std::endl;
+
+	std::cout << 5.1 / *mat1 << std::endl;
+
+	std::cout << CComplex(2, 5) / *mat1 << std::endl;
+
 	std::cout << *mat2 * CComplex(2,5) << std::endl;
 
 	std::cout << *mat1 * CComplex(2, 5) << std::endl;
+
+	std::cout << static_cast<CMatrix<double>>(*mat2);
 
 	return;
 }

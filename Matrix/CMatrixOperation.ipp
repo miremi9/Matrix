@@ -12,7 +12,7 @@
  ***** from the file                                                  *****
  **************************************************************************/
 template <class MType>
-CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
+CMatrix<MType> * CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 {
 	CStringOperation SOP;
 	CParseTable PTA;
@@ -55,7 +55,6 @@ CMatrix<MType> *  CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 	PTA.PTAparseTable(buffer, pMATnew, Nblignes, NbColonnes);
 
 	return pMATnew;
-
 }
 
 /************************************************************************

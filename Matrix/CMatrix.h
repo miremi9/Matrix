@@ -38,27 +38,7 @@ template <class MType> class CMatrix
 
 		
 		template <class T>
-		CMatrix(const CMatrix<T> & MATParam)
-		{
-			unsigned int uiRow, uiColum;
-
-			uiMATNbRow = MATParam.MATGetNbRow();
-			uiMATNbColum = MATParam.MATGetNbColum();
-
-			ppMTypeMATvalue = new MType*[uiMATNbRow];
-			for (unsigned int uiLoop = 0; uiLoop < uiMATNbRow; uiLoop++)
-			{
-				ppMTypeMATvalue[uiLoop] = new MType[uiMATNbColum];
-			}
-
-			for (uiRow = 0; uiRow < uiMATNbRow; uiRow++)
-			{
-				for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)
-				{
-					ppMTypeMATvalue[uiRow][uiColum] = static_cast<MType>(MATParam.MATGetValue(uiRow, uiColum));
-				}
-			}
-		}
+		CMatrix(const CMatrix<T> & MATParam);
 
 		/****************************************************************************
 		 ***** CMatrix() constructor  of copy                                   *****
@@ -101,15 +81,15 @@ template <class MType> class CMatrix
 
 		CMatrix operator-() const;
 
-		CMatrix operator+(const CMatrix& MATParam) const;
+		CMatrix operator+(const CMatrix & MATParam) const;
 
-		CMatrix operator-(const CMatrix& MATParam) const;
+		CMatrix operator-(const CMatrix & MATParam) const;
 
 		CMatrix& operator=(const CMatrix & MATParam);
 
 		CMatrix operator*(const CMatrix& MATParam) const;
 
-		CMatrix operator*(double dCoeff) const;
+		CMatrix<double> operator*(const double & dCoeff) const;
 
 		CMatrix<CComplex> operator*(const CComplex & COMparam) const;
 
@@ -121,29 +101,24 @@ template <class MType> class CMatrix
 		 ***** Output:  CMatrix                                             *****
 		 ***** Postconditions : every element of CMatrix is divide by dCoeff*****
 		 ************************************************************************/
-		CMatrix operator/(double dCoeff);
+		CMatrix<double> operator/(const double & dCoeff) const;
 
+		CMatrix<CComplex> operator/(const CComplex & COMparam) const;
+
+		template <class T>
+		explicit operator CMatrix<T>() const;
 		
 		template <class T>
-		explicit operator CMatrix<T>() const
-		{
-			CMatrix<T> result(uiMATNbRow, uiMATNbColum);
-			for (unsigned int uiRow = 0; uiRow < uiMATNbRow; uiRow++)
-			{
-				for (unsigned int uiColum = 0; uiColum < uiMATNbColum; uiColum++)
-				{
-					result.MATSetValue(uiRow, uiColum, static_cast<T>(ppMTypeMATvalue[uiRow][uiColum]));
-				}
-			}
-			return result;
-		}
+		friend CMatrix<double> operator*(const double & dCoeff, const CMatrix<T>& MAT);
 
-		
-		//template<typename T>
-		//friend CMatrix<typename std::common_type<T, MType>::type> operator+(const CMatrix<T>& MATparam1, const CMatrix<MType>& MATparam2);
-		
+		template <class T>
+		friend CMatrix<CComplex> operator*(const CComplex & COMparam, const CMatrix & MATparam);
 
-		//friend CMatrix operator+(CMatrix MATParam, CMatrix MATParam2);
+		template <class T>
+		friend CMatrix<double> operator/(const double & dCoeff, const CMatrix & MATparam);
+
+		template <class T>
+		friend CMatrix<CComplex> operator/(const CComplex & COMparam, const CMatrix & MATparam);
 
 		template<class T>
 		friend std::ostream & operator<<(std::ostream & os, const CMatrix<T> & MATparam);

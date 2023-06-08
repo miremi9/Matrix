@@ -8,7 +8,7 @@
 
 
 int main(int argc, const char **argv)
-{
+{/*
 	try {
 		testComplexe();
 		testOPmatrix();
@@ -20,10 +20,10 @@ int main(int argc, const char **argv)
 		std::cerr << "Error occured during program initialisation\n";
 		std::cerr << EXCparam << std::endl;
 		return 1;
-	}
+	}*/
 	
 	try {
-		if (argc < 2) { throw CException(FILE_ERROR, " FILE_ERROR\nMake sure your file exist with correct name & place\n"); }		//Test if there is at least one argument	
+		if (argc < 2) { throw CException(1, "ARGUMENT_ERROR\nMake sure to execute with a least 1 argument : text file to read\n"); }	//Test if there is at least one argument	
 	}
 	catch (const CException & EXCparam) {
 		std::cerr << "Error occured during program initialisation\n";
@@ -32,26 +32,85 @@ int main(int argc, const char **argv)
 	}
 	/*
 	int iValue;
-	std::cout << "Please, input a value : \n";		//ask user a constant value
-	std::cin >> iValue;*/
-	CMatrixOperation<double> MOP;
-	
+	std::cout << "Please, input a value scalar value : \n";		//ask user a scalar value
+	std::cin >> iValue;
+	*/
 
-	/*Matrix Construction*/
-	CMatrix<double>* ppMATList = new CMatrix<double>[argc - 1];	//List of matrix
+	unsigned int nbComplexMatrix = 0;
+	unsigned int nbDoubleMatrix = 0;
+	unsigned int ComplexMatrix[50];
+	unsigned int DoubleMatrix[50];
 
 	try {
-		for (int uiloop = 0; uiloop < argc - 1; uiloop++)	//for each file in argument, create associate matrix
+		CParser * pPARcontent;
+		char * buffer;
+
+		for (unsigned int uiloop = 1; uiloop <= (unsigned int) argc - 1; uiloop++)
 		{
-			CMatrix<double> * pMATMatrix = MOP.MOPCreateMAT(argv[uiloop + 1]);
-			ppMATList[uiloop] = *pMATMatrix;
+			pPARcontent = new CParser(argv[uiloop]);
+			buffer = pPARcontent->PARgetValue("TypeMatrice");
+			if (!strcmp(buffer, "double"))
+			{
+				DoubleMatrix[nbDoubleMatrix] = uiloop;
+				nbDoubleMatrix++;
+			}
+			else if (!strcmp(buffer, "complex"))
+			{
+				ComplexMatrix[nbComplexMatrix] = uiloop;
+				nbComplexMatrix++;
+			}
+			else {
+				throw CException(VALUE_ERROR, "VALUE_ERROR\n don't handle this type of element for Matrix, only double or Complex");
+			}
+			delete pPARcontent;
+		}
+	}
+	catch (const CException & EXCparam) {
+		std::cerr << "Error occured during program initialisation\n";
+		std::cerr << EXCparam << std::endl;
+		return 1;
+	}
+
+	std::cout << nbDoubleMatrix << std::endl;
+	std::cout << nbComplexMatrix << std::endl;
+
+	/*Matrix Construction*/
+	CMatrix<double>* ppMATdoubleList = new CMatrix<double>[nbDoubleMatrix];	//List of matrix double
+	CMatrix<CComplex>* ppMATccomplexList = new CMatrix<CComplex>[nbComplexMatrix];	//List of matrix complex
+
+	try {
+		CMatrixOperation<double> MOPdouble;
+		CMatrixOperation<CComplex> MOPccomplex;
+
+		for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++)	//for each file in argument, create associate matrix
+		{
+			std::cout << uiloop << std::endl;
+			CMatrix<double> * pMATMatrix = MOPdouble.MOPCreateMAT(argv[DoubleMatrix[uiloop]]);
+			ppMATdoubleList[uiloop] = *pMATMatrix;
+		}
+
+		for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++)	//for each file in argument, create associate matrix
+		{
+			std::cout << uiloop << std::endl;
+			CMatrix<CComplex> * pMATMatrix = MOPccomplex.MOPCreateMAT(argv[ComplexMatrix[uiloop]]);
+			ppMATccomplexList[uiloop] = *pMATMatrix;
 		}
 	}
 	catch (CException EXCparam) {
 		std::cout << "Error occured during matrix construction\n";
 		std::cout << EXCparam;
+		return 1;
 	}
 
+	for (unsigned int uiloop = 0; uiloop < nbDoubleMatrix; uiloop++)	//for each file in argument, create associate matrix
+	{
+		std::cout << ppMATccomplexList[uiloop];
+	}
+
+	for (unsigned int uiloop = 0; uiloop < nbComplexMatrix; uiloop++)	//for each file in argument, create associate matrix
+	{
+		std::cout << ppMATdoubleList[uiloop];
+	}
 
 	/*Apply methods on matrix*/
 	try {
@@ -115,7 +174,8 @@ int main(int argc, const char **argv)
 
 	std::cout << "\ncomplete\n";
 
-	delete[] ppMATList;
+	delete[] ppMATdoubleList;
+	delete[] ppMATccomplexList;
 
 	return 0;
 	
