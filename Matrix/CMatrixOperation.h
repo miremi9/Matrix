@@ -4,8 +4,6 @@
 #include "CMatrix.h"
 #include "CParser.h"
 #include "CStringOperation.h"
-#include <iostream>
-#include <stdlib.h>
 #include "CParseTable.h"
 
 #define VALUE_ERROR 3

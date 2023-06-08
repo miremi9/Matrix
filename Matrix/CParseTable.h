@@ -4,6 +4,7 @@
 #include "CMatrix.h"
 #include "CStringOperation.h"
 
+
 class CParseTable
 {
 	public:

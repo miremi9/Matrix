@@ -1,5 +1,5 @@
-#include "CMatrixOperation.h"
 //CMatrixOperation.ipp file used to define function from CMatrixOperation class declare in CMatrixOperation.h
+#include "CMatrixOperation.h"
 
 
 /**************************************************************************
@@ -22,19 +22,19 @@ CMatrix<MType> * CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 
 	CMatrix<MType> * pMATnew;
 
-	buffer = pPARcontent->PARgetValue("NBLignes");
+	buffer = pPARcontent->PARgetValue("NBLignes");		//read NBLignes 
 	unsigned int Nblignes = SOP.stoi(buffer);
 
-	buffer = pPARcontent->PARgetValue("NBColonnes");
+	buffer = pPARcontent->PARgetValue("NBColonnes");	//read NBColonnes
 	unsigned int NbColonnes = SOP.stoi(buffer);
 
-	buffer = pPARcontent->PARgetValue("TypeMatrice");
+	buffer = pPARcontent->PARgetValue("TypeMatrice");	//read TypeMatrice
 
 	if (strcmp(buffer, "double") == 0)
 	{
 		if (typeid(MType) != typeid(double))
 		{
-			throw new CException(VALUE_ERROR, "incohernent type beetween file and object");
+			throw new CException(VALUE_ERROR, "VALUE_ERROR\nCMatrixOperation<MType>::MOPCreateMAT : incohernent type beetween file and object");
 		}
 		pMATnew = new CMatrix<MType>(Nblignes, NbColonnes);
 	}
@@ -42,18 +42,18 @@ CMatrix<MType> * CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 	{
 		if (typeid(MType) != typeid(CComplex))
 		{
-			throw new CException(VALUE_ERROR, "incohernent type beetween file and object");
+			throw new CException(VALUE_ERROR, "VALUE_ERROR\nCMatrixOperation<MType>::MOPCreateMAT : incohernent type beetween file and object");
 		}
 		pMATnew = new CMatrix<MType>(Nblignes, NbColonnes);
 	}
 	else
 	{
-		throw CException(VALUE_ERROR, "don't handle this type of element");
+		throw CException(VALUE_ERROR, "VALUE_ERROR\nCMatrixOperation<MType>::MOPCreateMAT : don't handle this type of element");
 	}
 
-	buffer = pPARcontent->PARgetValue("Matrice");
+	buffer = pPARcontent->PARgetValue("Matrice");		//read values table
 
-	PTA.PTAparseTable(buffer, pMATnew, Nblignes, NbColonnes);
+	PTA.PTAparseTable(buffer, pMATnew, Nblignes, NbColonnes);	//read values
 
 	delete pPARcontent;
 
@@ -85,7 +85,7 @@ CMatrix<MType>* CMatrixOperation<MType>::MOPtransposeMAT(CMatrix<MType> MATparam
 }
 
 /**************************************************************************
- ***** MOPfillMAT                                                     *****
+ ***** MOPfillMATwith                                                 *****
  **************************************************************************
  ***** Input : const CMatrix<MType> MATparam                          *****
  ***** precondtion : MATparam is initialized                          *****

@@ -66,8 +66,7 @@ CException::CException(const CException & EXCparam)
 ************************************************************************/
 CException::~CException()
 {
-	if (pcEXCMessage)
-	{
+	if (pcEXCMessage) {
 		delete[] pcEXCMessage;
 	}
 }

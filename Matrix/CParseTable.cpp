@@ -36,7 +36,6 @@ void CParseTable::PTAparseTable(char * pcContent, CMatrix<double> * pMATparam,un
 		token = strtok_s(line," ", &pLineEnd);
 		for (unsigned int uiline = 0; uiline < NbColonnes; uiline++)
 		{
-			
 			dValue = atof(token);
 			pMATparam->MATSetValue(uiCol, uiline, dValue);
 

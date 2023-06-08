@@ -4,6 +4,7 @@
 
 #include "CMatrix.h"
 #include "CMatrixOperation.h"
+#include "CParser.h"
 
 
 int main(int argc, const char **argv)

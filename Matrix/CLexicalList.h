@@ -10,7 +10,7 @@
 
 class LexicalList
 {
-	/*Attributs*/
+	/*Attributes*/
 	private:
 
 		char *** pppcLELListValue;		//list of string list value

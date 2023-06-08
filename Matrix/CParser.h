@@ -27,9 +27,8 @@ class CParser
 		*****Output : None                                                  *****
 		*****Postconditions : this is initialized                           *****
 		************************************************************************/
-
-
 		CParser();
+
 		/************************************************************************
 		*****Constructor | CParser()                                        *****
 		*****Input : const CParser & PARparam                               *****
@@ -38,7 +37,6 @@ class CParser
 		*****Postconditions : this have the same value as PARparam          *****
 		************************************************************************/
 		CParser(const CParser & PARparam);
-
 
 		/************************************************************************
 		*****Constructor | CParser()                                        *****
@@ -68,9 +66,8 @@ class CParser
 		*****rwise                                                          *****
 		*****Output : char*                                                 *****
 		*****Postconditions : return the value associed to pcKey            *****
-************************************************************************/
+		************************************************************************/
 		char * PARgetValue(const char pcKey[]) const;
-
 
 		/************************************************************************
 		*****PARReadFile()                                                  *****
