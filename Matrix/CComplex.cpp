@@ -154,3 +154,13 @@ std::ostream & operator<<(std::ostream & os, const CComplex & COMparam)
 
 	return os;
 }
+
+std::istream& operator>>(std::istream& is, CComplex& COMparam) {
+	double real, imaginary;
+	std::cout << "Enter the real part: ";
+    is >> real;
+    std::cout << "Enter the imaginary part: ";
+	is >> imaginary;
+	COMparam = CComplex(real, imaginary);
+	return is;
+}

@@ -112,7 +112,7 @@ std::ostream& operator<<(std::ostream& os, const CException& EXCparam)
 	os << "ERROR CODE : " << EXCparam.iEXCvalue;
 
 	if (EXCparam.pcEXCMessage) {
-		os << EXCparam.pcEXCMessage;
+		os << " " << EXCparam.pcEXCMessage;
 	}
 
 	return os;

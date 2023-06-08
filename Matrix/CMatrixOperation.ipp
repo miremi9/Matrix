@@ -1,3 +1,4 @@
+#include "CMatrixOperation.h"
 //CMatrixOperation.ipp file used to define function from CMatrixOperation class declare in CMatrixOperation.h
 
 
@@ -37,7 +38,7 @@ CMatrix<MType> * CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 		}
 		pMATnew = new CMatrix<MType>(Nblignes, NbColonnes);
 	}
-	else if (strcmp(buffer, "CComplexe") == 0)
+	else if (strcmp(buffer, "complex") == 0)
 	{
 		if (typeid(MType) != typeid(CComplex))
 		{
@@ -53,6 +54,8 @@ CMatrix<MType> * CMatrixOperation<MType>::MOPCreateMAT(const char *pcFilename)
 	buffer = pPARcontent->PARgetValue("Matrice");
 
 	PTA.PTAparseTable(buffer, pMATnew, Nblignes, NbColonnes);
+
+	delete pPARcontent;
 
 	return pMATnew;
 }
@@ -79,4 +82,24 @@ CMatrix<MType>* CMatrixOperation<MType>::MOPtransposeMAT(CMatrix<MType> MATparam
 		}
 	}
 	return MATnew;
+}
+
+/**************************************************************************
+ ***** MOPfillMAT                                                     *****
+ **************************************************************************
+ ***** Input : const CMatrix<MType> MATparam                          *****
+ ***** precondtion : MATparam is initialized                          *****
+ ***** Output : None                                                  *****
+ ***** Postcondition : fill matrix with MType value                   *****
+ **************************************************************************/
+template <class MType>
+void CMatrixOperation<MType>::MOPfillMATwith(CMatrix<MType>& MATparam, const MType& MTypeParam)
+{
+	for (unsigned int uiRow = 0; uiRow < MATparam.MATGetNbRow() ; uiRow++)
+	{
+		for (unsigned int uiColum = 0; uiColum < MATparam.MATGetNbColum() ; uiColum++)
+		{
+			MATparam.MATSetValue(uiRow, uiColum, MTypeParam);
+		}
+	}
 }

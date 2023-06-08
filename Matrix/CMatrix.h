@@ -33,10 +33,8 @@ template <class MType> class CMatrix
 		 **********************************************************************************************/
 		CMatrix() : CMatrix<MType>(0, 0) {};
 
-
 		CMatrix(unsigned int nbRow, unsigned int nbColum);
 
-		
 		template <class T>
 		CMatrix(const CMatrix<T> & MATParam);
 
@@ -89,7 +87,7 @@ template <class MType> class CMatrix
 
 		CMatrix operator*(const CMatrix& MATParam) const;
 
-		CMatrix<double> operator*(const double & dCoeff) const;
+		CMatrix<MType> operator*(const double & dCoeff) const;
 
 		CMatrix<CComplex> operator*(const CComplex & COMparam) const;
 
@@ -101,7 +99,7 @@ template <class MType> class CMatrix
 		 ***** Output:  CMatrix                                             *****
 		 ***** Postconditions : every element of CMatrix is divide by dCoeff*****
 		 ************************************************************************/
-		CMatrix<double> operator/(const double & dCoeff) const;
+		CMatrix<MType> operator/(const double & dCoeff) const;
 
 		CMatrix<CComplex> operator/(const CComplex & COMparam) const;
 

@@ -25,11 +25,6 @@ CMatrix<Mtype>::CMatrix(unsigned int uiNbRow, unsigned int uiNbColum)
 	for (uiLoop = 0; uiLoop < uiNbRow; uiLoop++)
 	{
 		ppMTypeMATvalue[uiLoop] = new Mtype[uiNbColum];
-		/*
-		for (uiLoop2 = 0; uiLoop2 < uiNbColum; uiLoop2++)
-		{
-			ppMTypeMATvalue[uiLoop][uiLoop2] = static_cast<Mtype>(0);
-		}*/
 	}
 	uiMATNbRow = uiNbRow;
 	uiMATNbColum = uiNbColum;
@@ -306,21 +301,20 @@ CMatrix<MType> CMatrix<MType>::operator*(const CMatrix & MATParam) const
  ***** Postconditions : every element of CMatrix is multiplie by the dCOeff *****
  ********************************************************************************/
 template <class MType>
-CMatrix<double> CMatrix<MType>::operator*(const double & dCoeff) const
+CMatrix<MType> CMatrix<MType>::operator*(const double & dCoeff) const
 {
-	CMatrix<MType> MATnew(uiMATNbRow, uiMATNbColum);
+	CMatrix<MType> MATnew(this->MATGetNbRow(), this->MATGetNbColum());
 
 	unsigned int uiRow, uiColum;
 	for (uiRow = 0; uiRow < uiMATNbRow; uiRow++)
 	{
 		for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)
 		{
-			MATnew.ppMTypeMATvalue[uiRow][uiColum] = ppMTypeMATvalue[uiRow][uiColum] * dCoeff;
+			MATnew.MATSetValue(uiRow, uiColum, MATGetValue(uiRow, uiColum) * dCoeff);
 		}
 	}
 	return MATnew;
 }
-
 
 template <class MType>
 CMatrix<CComplex> CMatrix<MType>::operator*(const CComplex & COMparam) const
@@ -333,7 +327,6 @@ CMatrix<CComplex> CMatrix<MType>::operator*(const CComplex & COMparam) const
 			MATnew.MATSetValue(uiRow, uiColumn, MATGetValue(uiRow, uiColumn) * COMparam);
 		}
 	}
-
 	return MATnew;
 }
 
@@ -346,7 +339,7 @@ CMatrix<CComplex> CMatrix<MType>::operator*(const CComplex & COMparam) const
  ***** Postconditions : every element of CMatrix is divide by dCoeff*****
  ************************************************************************/
 template <class MType>
-CMatrix<double> CMatrix<MType>::operator/(const double & dCoeff) const
+CMatrix<MType> CMatrix<MType>::operator/(const double & dCoeff) const
 {
 	CMatrix<MType> MATnew(uiMATNbRow, uiMATNbColum);
 
@@ -355,7 +348,7 @@ CMatrix<double> CMatrix<MType>::operator/(const double & dCoeff) const
 	{
 		for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)
 		{
-			MATnew.ppMTypeMATvalue[uiRow][uiColum] = ppMTypeMATvalue[uiRow][uiColum] / dCoeff;
+			MATnew.MATSetValue(uiRow, uiColum, MATGetValue(uiRow, uiColum) / dCoeff);
 		}
 
 	}
@@ -363,16 +356,16 @@ CMatrix<double> CMatrix<MType>::operator/(const double & dCoeff) const
 }
 
 template <class MType>
-CMatrix<CComplex> CMatrix<MType>::operator/(const CComplex & COMCoeff) const
+CMatrix<CComplex> CMatrix<MType>::operator/(const CComplex & COMparam) const
 {
-	CMatrix<MType> MATnew(uiMATNbRow, uiMATNbColum);
+	CMatrix<CComplex> MATnew(uiMATNbRow, uiMATNbColum);
 
 	unsigned int uiRow, uiColum;
 	for (uiRow = 0; uiRow < uiMATNbRow; uiRow++)
 	{
 		for (uiColum = 0; uiColum < uiMATNbColum; uiColum++)
 		{
-			MATnew.ppMTypeMATvalue[uiRow][uiColum] = ppMTypeMATvalue[uiRow][uiColum] / COMCoeff;
+			MATnew.MATSetValue(uiRow, uiColum, MATGetValue(uiRow, uiColum) / COMparam);;
 		}
 
 	}

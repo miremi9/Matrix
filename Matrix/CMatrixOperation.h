@@ -45,7 +45,7 @@ template <class MType> class CMatrixOperation
 		 ***** Output : None                                                  *****
 		 ***** Postcondition : fill matrix with 0                             *****
 		 **************************************************************************/
-		void MOPfullMAT(CMatrix<MType>& MATparam, MType);
+		void MOPfillMATwith(CMatrix<MType>& MATparam, const MType& MTypeParam);
 };
 
 #include "CMatrixOperation.ipp"

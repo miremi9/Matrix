@@ -275,6 +275,16 @@ class CComplex {
 		 ***** format	                                                      *****
 		 **************************************************************************/
 		friend std::ostream & operator<<(std::ostream & os, const CComplex & COMparam);
+
+		/**************************************************************************
+		 ***** operator>>		                                              *****
+		 **************************************************************************
+		 ***** Input : const CComplex& COMparam, istream                      *****
+		 ***** precondtion : COMparam is initialized                          *****
+		 ***** Output : ostream                                               *****
+		 ***** Postcondition : create CComplex from inputed value			  *****
+		 **************************************************************************/
+		friend std::istream& operator>>(std::istream& is, CComplex& COMparam);
 };
 
 #endif	//C_COMPLEX_H
